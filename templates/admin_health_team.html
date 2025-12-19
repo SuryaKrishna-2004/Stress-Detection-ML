@@ -1,0 +1,319 @@
+{% include 'admin_header.html'%}
+
+
+
+<!-- ======= Breadcrumbs ======= -->
+<div class="breadcrumbs d-flex align-items-center" style="background-image: url('static/assets/img/ooo.png');">
+    <div class="container position-relative d-flex flex-column align-items-center">
+        <div class="container">
+            <div class="row">
+                <h2 data-aos="fade-up">Manage Health Care Employee</h2>
+                <blockquote data-aos="fade-up" data-aos-delay="100">
+                    <p style="text-align: justify; color: aliceblue;">You can add, update, and remove health team
+                        member's details.</p>
+                </blockquote>
+            </div>
+        </div>
+    </div>
+</div><!-- End Breadcrumbs -->
+<main id="main">
+    <!-- ======= Section-2 ======= -->
+    <section id="contact" class="contactt">
+        <div class="container position-relative d-flex flex-column ">
+            <div class="row">
+                <div>
+                    {% if data['upd']%}
+                    <h1 align="center" class="mt-3"
+                        style="color: #06567b; font-weight: 500; font-size: 48px;font-family:Georgia, 'Times New Roman', Times, serif;">
+                        <u>Update Health Care Employee Details</u>
+                    </h1>
+                    <br>
+                    <br>
+                    <form method="post" class="php-email-form">
+                        <table style="width: 50%; " cellpadding="6">
+                            <tr>
+                                <th style="width: 30%">First Name</th>
+                                <td><input type="text" name="first" value="{{data['upd'][0]['h_fname']}}"
+                                        pattern="[A-Za-z ]{1,32}" title="Please enter employee first name"
+                                        class="form-control mt-3" placeholder="First Name" required></td>
+                            </tr>
+                            <tr>
+                                <th>Last Name</th>
+                                <td><input type="text" name="last" value="{{data['upd'][0]['h_lname']}}"
+                                        pattern="[A-Za-z ]{1,32}" title="Please enter employee last name"
+                                        class="form-control mt-3" placeholder="Last Name"></td>
+                            </tr>
+                            <tr>
+                                <th>Gender</th>
+                                <td>{%if data['upd'][0]['h_gender']=='Male' %}
+                                    &emsp;<input type="radio" name="gender" value="Male" class="mt-3 "
+                                        checked>&nbsp;&nbsp;Male&emsp; &emsp;<input type="radio" name="gender"
+                                        value="Female">&nbsp;&nbsp;Female&emsp; &emsp;<input type="radio" name="gender"
+                                        value="Others">&nbsp;&nbsp;Others
+                                    {%elif data['upd'][0]['h_gender']=='Female'%}
+                                    &emsp;<input type="radio" name="gender" value="Male"
+                                        class="mt-3 ">&nbsp;&nbsp;Male&emsp; &emsp;<input type="radio" name="gender"
+                                        value="Female" checked>&nbsp;&nbsp;Female&emsp; &emsp;<input type="radio"
+                                        name="gender" value="Others">&nbsp;&nbsp;Others
+                                    {%else%}
+                                    &emsp;<input type="radio" name="gender" value="Male"
+                                        class="mt-3 ">&nbsp;&nbsp;Male&emsp; &emsp;<input type="radio" name="gender"
+                                        value="Female">&nbsp;&nbsp;Female&emsp; &emsp;<input type="radio" name="gender"
+                                        value="Others" checked>&nbsp;&nbsp;Others
+                                    {%endif%}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>DOB</th>
+                                <td><input type="date" name="dob" value="{{data['upd'][0]['h_dob']}}"
+                                        class="form-control mt-3" id="add_d" required></td>
+                            </tr>
+                            <tr>
+                                <th>Qualification</th>
+                                <td><input type="text" name="h_qualification" class="form-control mt-3"
+                                        value="{{data['upd'][0]['h_qualification']}}" pattern="[A-Za-z(),. ]{1,80}"
+                                        required></td>
+                            </tr>
+                            <tr>
+                                <th>Phone No.</th>
+                                <td><input type="tel" name="h_phone_no" pattern="[6789][0-9]{9}"
+                                        title="Please enter valid phone number" class="form-control mt-3"
+                                        value="{{data['upd'][0]['h_phone_no']}}" required></td>
+                            </tr>
+                            <tr>
+                                <th>Email ID</th>
+                                <td><input type="email" name="h_email_id" class="form-control mt-3"
+                                        value="{{data['upd'][0]['h_email_id']}}"
+                                        pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+                                        title="Please enter valid email Id" required></td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" style="text-align: right;"><input type="submit" class="mt-3"
+                                        name="update" value="UPDATE"></td>
+                            </tr>
+                        </table>
+                    </form>
+
+                    {%else%}
+                    <h1 align="center" class="mt-3"
+                        style="color: #06567b; font-weight: 500; font-size: 48px;font-family:Georgia, 'Times New Roman', Times, serif;">
+                        <u>Health Care Employee Registration</u>
+                    </h1>
+                    <br><br>
+                    <form method="post" class="php-email-form">
+                        <table style="width: 50%; " cellpadding="6">
+
+                            <tr>
+                                <th style="width: 30%">First Name</th>
+                                <td><input type="text" name="first" pattern="[A-Za-z ]{1,32}"
+                                        title="Please enter employee first name" class="form-control mt-3"
+                                        placeholder="First Name" required></td>
+                            </tr>
+                            <tr>
+                                <th>Last Name</th>
+                                <td><input type="text" name="last" pattern="[A-Za-z ]{1,32}"
+                                        title="Please enter employee last name" class="form-control mt-3"
+                                        placeholder="Last Name"></td>
+                            </tr>
+                            <tr>
+                                <th>Gender</th>
+                                <div>
+                                    <td>
+                                        &emsp;<input type="radio" name="gender" value="Male" class="mt-3 "
+                                            required>&nbsp;&nbsp;<label>Male</label> &emsp; &emsp;
+                                        <input type="radio" name="gender" value="Female" required>&nbsp;&nbsp;<label>
+                                            Female</label> &emsp; &emsp;
+                                        <input type="radio" name="gender" value="Others" required>&nbsp;&nbsp;<label>
+                                            Others</label>
+                                    </td>
+                                </div>
+                            </tr>
+                            <tr>
+                                <th>DOB</th>
+                                <td><input type="date" name="dob" class="form-control mt-3 " id="add_d" required></td>
+                            </tr>
+                            <tr>
+                                <th>Qualification</th>
+                                <td><input type="text" name="h_qualification" pattern="[A-Za-z.,() ]{1,80}"
+                                        placeholder="Qualification" class="form-control mt-3" required></td>
+                            </tr>
+                            <tr>
+                                <th>Phone No</th>
+                                <td><input type="tel" name="h_phone_no" pattern="[6789][0-9]{9}"
+                                        title="Please enter valid phone number" placeholder="Phone Number"
+                                        class="form-control mt-3" required></td>
+                            </tr>
+                            <tr>
+                                <th>Latitude</th>
+                                <td><input type="text" class="form-control" name="latitude" id="lati" readonly required></td>
+
+                            </tr>
+                            <tr>
+                                <th>Longitude</th>
+                                <td><input type="text" class="form-control" name="longitude" id="longi" readonly required></td>
+                            </tr>
+                            <td colspan="2"><a class="btn btn-success btn-sm" onclick="myFunction();">View Map</a></td>
+                            <tr>
+                                <th>Email ID</th>
+                                <td><input type="email" name="h_email_id" placeholder="Email ID"
+                                        class="form-control mt-3" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+                                        title="Please enter valid email Id" required></td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" style="text-align: right;"><input type="submit" name="submit"
+                                        value="ADD" class="mt-3"></td>
+                            </tr>
+                        </table>
+                        <td>
+                            <div id="dvMap" style="width: 600px; height: 400px"></div>
+                                </td>
+                    </form>
+
+                    
+                
+                    
+                    {%endif%}
+                    <br>
+                    <hr>
+                    <br>
+                    <form method="post" class="php-email-form">
+                        <table align="left">
+                            <tr>
+                                <td style="text-align: center;"><label
+                                        style="font-size:large ;color: #06567b;font-weight: 800; ">Search
+                                        By</label>&emsp;</td>
+                                <td><select name="category" id="small">
+                                        <!-- <option value=""> </option> -->
+                                        <option value="all">List All</option>
+                                        <option value="name">First Name</option>
+                                        <option value="namee">Last Name</option>
+                                        <!-- <option value="all">All HC Employee</option> -->
+                                        <!-- <option value="all">All Doctors</option> -->
+                                        <!-- <option value="designation">Designation</option> -->
+                                    </select>&emsp;</td>
+
+
+
+
+                                <td>
+                                    <input type="text" class="form-control" name="search"
+                                        placeholder="Search for health team">
+
+                                </td>
+                                <td><input type="submit" name="searchbtn" value="Search"></td>
+                            </tr>
+
+
+                        </table>
+                    </form>
+
+
+                    {%if item['view']%}
+                    <br>
+                    <hr><br><br><br><br>
+
+                    <br>
+                    <table class="table hello">
+                        <tr style="background-color: #046795ee;">
+                            <th>S No.</th>
+                            <th>Name</th>
+                            <th>Phone No</th>
+                            <th>Email ID</th>
+                            <th style="width: 11px;">Edit</th>
+                            <th style="width: 11px;">Delete</th>
+                            <th style="width: 11px;">More</th>
+                        </tr>
+                        {% for i in item['view']%}
+                        <tr>
+                            <td>{{loop.index}}</td>
+                            <td>{{i['h_fname']}} {{i['h_lname']}}</td>
+                            <td>{{i['h_phone_no']}}</td>
+                            <td>{{i['h_email_id']}}</td>
+                            <td align="center" style="font-size: 25px;"><a href="?action=update&id={{i['health_id']}}"
+                                    class="bi bi-pencil-square"></a></td>
+                            <td align="center" style="font-size: 25px;"><a href="?action=delete&id={{i['health_id']}}"
+                                    class="bi bi-trash3-fill"></a></td>
+                            <td align="center" style="font-size: 25px;"><a
+                                    href="/more_health_team_detail?action=view&id={{i['health_id']}}"
+                                    class="bi bi-three-dots"></a></td>
+
+                        </tr>
+                        {%endfor%}
+                    </table>
+
+                    {%else%}
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <p style="font-size: medium; color: crimson; font-style: italic;font-family: 'Times New Roman', Times, serif;"
+                        align="center">List Empty !!!</p>
+                    {%endif%}
+                </div>
+            </div>
+        </div>
+    </section><!-- End Section-2 -->
+</main>
+<script>
+    const d = new Date();
+    const e = new Date();
+    d.setFullYear(d.getFullYear() - 65);
+    e.setFullYear(e.getFullYear() - 27);
+    var min = d.toISOString().split('T')[0];
+    var max = e.toISOString().split('T')[0];
+    var inputt = document.getElementById("add_d");
+    // var input = document.getElementById("upd_d");
+    inputt.setAttribute("max", max);
+    inputt.setAttribute("min", min);
+// input.setAttribute("max",max);
+// input.setAttribute("min",min);
+</script>
+
+<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyD3MPnSnyWwNmpnVEFkaddVvy_GWtxSejs&sensor=false"></script>
+    <script type="text/javascript">
+        // window.onload = function () {
+        	function myFunction(){
+            var mapOptions = {
+                center: new google.maps.LatLng(9.9763482, 76.286272),
+                zoom: 14,
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+            };
+            var infoWindow = new google.maps.InfoWindow();
+            var latlngbounds = new google.maps.LatLngBounds();
+            var map = new google.maps.Map(document.getElementById("dvMap"), mapOptions);
+            google.maps.event.addListener(map, 'click', function (e) {
+                alert("Latitude: " + e.latLng.lat() + "\r\nLongitude: " + e.latLng.lng());
+                document.getElementById('lati').value = e.latLng.lat();
+                document.getElementById('longi').value = e.latLng.lng();
+
+            });
+        }
+    </script>
+{% include 'footer.html'%}
+
+<style>
+    .hello th {
+        font-family: Georgia, 'Times New Roman', Times, serif;
+        font-weight: 500;
+        font-size: 17px;
+        color: #ffffff;
+    }
+
+    th {
+        font-family: Georgia, 'Times New Roman', Times, serif;
+        font-weight: 800;
+        font-size: 18px;
+        color: #06567b;
+
+    }
+
+
+    a {
+        color: #06567b;
+    }
+
+    a:hover {
+        color: crimson;
+    }
+</style>

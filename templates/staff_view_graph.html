@@ -1,0 +1,244 @@
+{% include 'staff_header.html'%}
+
+
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Month and Year Picker</title>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script>
+        $(function() {
+            $("#monthYearInput").datepicker({
+                dateFormat: 'MM yy',
+                changeMonth: true,
+                changeYear: true,
+                showButtonPanel: true,
+                onClose: function(dateText, inst) {
+                    var month = $("#ui-datepicker-div .ui-datepicker-month :selected").val();
+                    var year = $("#ui-datepicker-div .ui-datepicker-year :selected").val();
+                    $(this).datepicker('setDate', new Date(year, month, 1));
+                }
+            });
+        });
+    </script>
+
+<!-- ======= Breadcrumbs ======= -->
+<div class="breadcrumbs d-flex align-items-center" style="background-image: url('static/assets/img/n.jpg');">
+  <div class="container position-relative d-flex flex-column align-items-center">
+    <div class="container">
+      <div class="row">
+        <h2 data-aos="fade-up">Emotion graph</h2>
+        <blockquote data-aos="fade-up" data-aos-delay="100">
+          <p style="text-align: justify; color: aliceblue;">Here are the most recent changes and updates.</p>
+        </blockquote>
+      </div>
+    </div>
+  </div>
+</div><!-- End Breadcrumbs -->
+<br><br><br>
+<form action="" method="post">
+  <label for="monthYearInput">Select Date:</label>
+  <input type="date" name="dinput" id="">
+  <input type="submit" name="dsubmit" value="Submit">
+</form>
+<form action="" method="post">
+  <label for="monthYearInput">Select Month and Year:</label>
+  <input type="text" id="monthYearInput" name="monthYearInput" required>
+  <input type="submit" name="msubmit"value="Submit">
+</form>
+
+
+
+<main id="main">
+  <!-- ======= Section-2 ======= -->
+  <section id="contact" class="contactt">
+    <div class="container position-relative d-flex flex-column ">
+      <div class="row">
+        <canvas id="emotionChart" width="800" height="400"></canvas>
+       
+      </div>
+    </div>
+  </section><!-- End Section-2 -->
+</main>
+
+{% include 'footer.html'%}
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    var ctx = document.getElementById("emotionChart").getContext("2d");
+
+    var dates = [];
+    var staffData = {};
+
+    {% for i in data['em']%}
+      dates.push("{{ i['date'] }}");
+      
+      if (!staffData["{{ i['staff_id'] }}"]) {
+        staffData["{{ i['staff_id'] }}"] = {
+          label: "{{ i['first_name'] }} {{ i['last_name'] }}",
+          data: [],
+          emotion: [],  // Add this line
+          p_result: [],  // Add this line
+          borderColor: getRandomColor(),
+          borderWidth: 2,
+          fill: false,
+        };
+      }
+
+      staffData["{{ i['staff_id'] }}"].data.push({{ i['average_score'] }});
+      staffData["{{ i['staff_id'] }}"].emotion.push("{{ i['detected_emotion'] }}");
+      staffData["{{ i['staff_id'] }}"].p_result.push("{{ i['p_result'] }}");  // Add this line
+    {% endfor %}
+
+    {% for i in data['din']%}
+      dates.push("{{ i['date'] }}");
+      
+      if (!staffData["{{ i['staff_id'] }}"]) {
+        staffData["{{ i['staff_id'] }}"] = {
+          label: "{{ i['first_name'] }} {{ i['last_name'] }}",
+          data: [],
+          emotion: [],  // Add this line
+          p_result: [],  // Add this line
+          borderColor: getRandomColor(),
+          borderWidth: 2,
+          fill: false,
+        };
+      }
+
+      staffData["{{ i['staff_id'] }}"].data.push({{ i['average_score'] }});
+      staffData["{{ i['staff_id'] }}"].emotion.push("{{ i['detected_emotion'] }}");
+      staffData["{{ i['staff_id'] }}"].p_result.push("{{ i['p_result'] }}");  // Add this line
+    {% endfor %}
+
+    {% for i in data['min']%}
+      dates.push("{{ i['date'] }}");
+      
+      if (!staffData["{{ i['staff_id'] }}"]) {
+        staffData["{{ i['staff_id'] }}"] = {
+          label: "{{ i['first_name'] }} {{ i['last_name'] }}",
+          data: [],
+          emotion: [],  // Add this line
+          p_result: [],  // Add this line
+          borderColor: getRandomColor(),
+          borderWidth: 2,
+          fill: false,
+        };
+      }
+
+      staffData["{{ i['staff_id'] }}"].data.push({{ i['average_score'] }});
+      staffData["{{ i['staff_id'] }}"].emotion.push("{{ i['detected_emotion'] }}");
+      staffData["{{ i['staff_id'] }}"].p_result.push("{{ i['p_result'] }}");  // Add this line
+    {% endfor %}
+
+    var datasets = Object.values(staffData).map(function (staff) {
+      return {
+        label: staff.label,
+        data: staff.data,
+        borderColor: staff.borderColor,
+        borderWidth: staff.borderWidth,
+        fill: staff.fill,
+      };
+    });
+
+    var myChart = new Chart(ctx, {
+      type: "bar",
+      data: {
+        labels: dates,
+        datasets: datasets,
+      },
+      options: {
+        scales: {
+          x: {
+            type: "category",
+            labels: dates,
+          },
+          y: {
+            beginAtZero: true,
+            max: 7, // Adjust this to the maximum emotion score value
+          },
+        },
+        plugins: {
+          tooltip: {
+            callbacks: {
+              title: function (tooltipItem) {
+                return tooltipItem[0].label;
+              },
+              label: function (context) {
+                var datasetIndex = context.datasetIndex;
+                var index = context.dataIndex;
+                var staff = staffData[Object.keys(staffData)[datasetIndex]];
+
+                // Retrieve the p_result information based on date and staff_id
+                var pResultInfo = getPResultInfo(staffData, staff.label, staff.dates[index]);
+
+                // Return the label with p_result information
+                return `${staff.label}: Score - ${staff.data[index]}, Emotion - ${staff.emotion[index]}, Result - ${pResultInfo}`;
+              },
+            },
+          },
+        },
+      },
+    });
+  });
+
+  function getRandomColor() {
+    var letters = "0123456789ABCDEF";
+    var color = "#";
+    for (var i = 0; i < 6; i++) {
+      color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
+  }
+
+  function getPResultInfo(staffData, staffId, date) {
+    // Iterate through staff data to find the matching date and staff_id
+    for (var i in staffData) {
+      if (staffData[i].label === staffId) {
+        var index = staffData[i].dates.indexOf(date);
+        if (index !== -1) {
+          return staffData[i].p_result[index];
+        }
+      }
+    }
+    return 'N/A';
+  }
+</script>
+
+<style>
+  canvas#emotionChart {
+    max-width: 100%;
+    margin: 0 auto;
+    display: block;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+
+  /* Tooltip styles */
+  .chartjs-tooltip {
+    background: rgba(255, 255, 255, 0.8);
+    border: 1px solid #ddd;
+    padding: 10px;
+    color: #555;
+    border-radius: 4px;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+  }
+
+  /* Responsive styles */
+  @media (max-width: 768px) {
+    canvas#emotionChart {
+      border: none;
+      box-shadow: none;
+    }
+
+    .chartjs-tooltip {
+      box-shadow: none;
+    }
+  }
+</style>
+
+

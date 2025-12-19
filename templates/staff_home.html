@@ -1,0 +1,109 @@
+{% include 'staff_header.html'%}
+<!-- ======= Hero Section ======= -->
+<section id="hero" class="hero d-flex align-items-center">
+  <div class="container">
+    <div class="row">
+      <div class="col-xl-4">
+        <h2 data-aos="fade-up" class="mt-3" style="font-size: 60px; margin-left: -60">Welcome</h2>
+        <h1 data-aos="fade-right"
+          style="color: #56b8e6; text-align: right; margin: 0;font-size: 48px;font-weight: 700;line-height: 1.2;">
+          {{data['view'][0]['first_name']}}&nbsp;{{data['view'][0]['last_name']}}</h1>
+        <blockquote data-aos="fade-up" data-aos-delay="100">
+          <p style="text-align: justify;"></p>
+        </blockquote>
+      </div>
+    </div>
+  </div>
+</section><!-- End Hero Section -->
+
+
+
+
+{% include 'footer.html'%}
+
+
+
+
+<script>
+  $(document).ready(function () { 
+    // Function to check for new complaints and play alert sound
+    function check_notification() {
+      $.get("/check_notification", function (data) {
+        if (data.new_notification) {
+          // Set the notification message
+          $("#notification-message").text("You have " + data.new_notification + " new complaints.");
+  
+          // Play the alert sound
+          playAlertSound();
+  
+          // Show the notification
+          $("#notification").fadeIn();
+  
+          // Set a timeout to automatically close the notification after a certain duration
+          setTimeout(function () {
+            $("#notification").fadeOut();
+          }, 5000);  // Adjust the duration as needed
+        }
+      });
+    }
+  
+    // Function to play the alert sound
+    function playAlertSound() {
+      // Create an audio element
+      var audio = new Audio('/static/Notification.mp3'); // Replace with the path to your sound file
+      audio.play();
+    }
+  
+    // Initial check for complaints on page load
+    check_notification();
+  
+    // Periodically check for new complaints (every 60 seconds in this example)
+    setInterval(check_notification, 10000);
+  
+    // Close the notification when the close icon is clicked
+    $("#close-notification").click(function () {
+      $("#notification").fadeOut();
+    });
+  });
+  
+</script>
+
+
+
+<div id="notification" class="notification-message" style="position: fixed; top: 10px; right: 10px; z-index: 999; display: none;">
+  <div class="card_ss alert alert-primary alert-dismissible fade show" style="padding: 10px; border: none; background-color: rgb(226, 12, 12); ">
+    <span id="close_ss-notification_ss" class="close_ss" style="color: black; cursor: pointer; font-size: 18px; margin-right: -10px;">&times;</span>
+    <span id="notification_ss-message" style="color: black; font-size: 16px;">Its time to wind up Your Job</span>
+  </div>
+</div>
+
+
+<style>
+  /* Add your CSS styles for the notification_ss here */
+  /* Add this CSS to your existing styles or in a style tag in the head section of your HTML */
+
+.notification-message {
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  z-index: 999;
+  display: none;
+}
+
+
+  .card_ss {
+    padding: 30px;
+    position: relative;
+  }
+
+  .close_ss {
+    display: block;
+    position: absolute;
+    top: 5px;
+    /* Adjust the distance from the top as needed */
+    right: 5px;
+    /* Adjust the distance from the right as needed */
+    color: red;
+
+  }
+</style>

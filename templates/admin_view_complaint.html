@@ -1,0 +1,85 @@
+{% include 'admin_header.html'%}
+<!-- ======= Breadcrumbs ======= -->
+<div class="breadcrumbs d-flex align-items-center" style="background-image: url('static/assets/img/c.jpg');">
+  <div class="container position-relative d-flex flex-column align-items-center">
+    <div class="container">
+      <div class="row">
+        <h2 data-aos="fade-up">Grievance</h2>
+        <blockquote data-aos="fade-up" data-aos-delay="100">
+          <p style="text-align: justify; color: aliceblue;">Respond to the employee's grievance and solve their problem.
+          </p>
+        </blockquote>
+      </div>
+    </div>
+  </div>
+</div><!-- End Breadcrumbs -->
+
+<!-- ======= Section-2 ======= -->
+<section id="contact" class="contactt">
+  <div class="container position-relative d-flex flex-column ">
+    <div class="row">
+      <div>
+        {%if data['view']%}
+        <h1 style="color: #06567b;"></h1>
+        <br>
+        <form method="post" class="php-email-form">
+
+          <table class="table " style="text-align: justify;" class="table table-hover">
+            <tr style="background-color: #06567b;">
+
+              <th>Send On</th>
+              <th>Send By</th>
+              <th>Issue </th>
+              <th>Your Response</th>
+              <th></th>
+            </tr>
+            {% for i in data['view']%}
+            <tr>
+              <td>{{i['date']}}</td>
+              <td>{{i['first_name'] +" " +i['last_name']}}</td>
+              <td>{{i['complaint_des']}}</td>
+              <td>{{i['reply']}}</td>
+              {%if i['reply']=='Please wait for the Response'%}
+              <td><a href="/admin_send_reply?action=reply&id={{i['complaint_id']}}" class="bi bi-reply-fill">&nbsp;Send
+                  Reply</a></td>
+              {%endif%}
+            </tr>
+            {%endfor%}
+          </table>
+          {%endif%}
+        </form>
+
+
+      </div>
+    </div>
+  </div>
+</section><!-- End Section-2 -->
+
+{% include 'footer.html'%}
+
+<style>
+  td,
+  a {
+    font-style: italic;
+
+  }
+
+  th {
+    font-weight: 500;
+    color: white;
+  }
+
+  a {
+    color: #1f98d1;
+    text-decoration: none;
+    transition: 0.3s;
+    font-weight: 900;
+    font-style: normal;
+  }
+
+  a:hover {
+    color: #d11f1f;
+    text-decoration: none;
+    transition: 0.3s;
+  }
+</style>

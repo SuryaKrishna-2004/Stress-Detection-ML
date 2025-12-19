@@ -1,0 +1,139 @@
+{% include 'staff_header.html'%}
+
+<!-- ======= Breadcrumbs ======= -->
+<div class="breadcrumbs d-flex align-items-center" style="background-image: url('static/assets/img/n.jpg');">
+  <div class="container position-relative d-flex flex-column align-items-center">
+    <div class="container">
+      <div class="row">
+        <h2 data-aos="fade-up">Notification</h2>
+        <blockquote data-aos="fade-up" data-aos-delay="100">
+          <p style="text-align: justify; color: aliceblue;">Here are the most recent changes and updates.</p>
+        </blockquote>
+      </div>
+    </div>
+  </div>
+</div><!-- End Breadcrumbs -->
+
+<main id="main">
+  <!-- ======= Section-2 ======= -->
+  <section id="contact" class="contactt">
+    <div class="container position-relative d-flex flex-column ">
+      <div class="row">
+        <canvas id="emotionChart" width="800" height="400"></canvas>
+      </div>
+    </div>
+  </section><!-- End Section-2 -->
+</main>
+
+{% include 'footer.html'%}
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<!-- ... (your HTML code) ... -->
+
+<!-- ... (your HTML code) ... -->
+
+<!-- ... (your HTML code) ... -->
+
+<!-- ... (your HTML code) ... -->
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+      var data = {
+        dates: [],
+        staffData: {},
+      };
+  
+      {% for i in data['em'] %}
+        var staffId = "{{ i['staff_id'] }}";
+        var staffName = "{{ i['first_name'] }} {{ i['last_name'] }}";
+        var date = "{{ i['date'] }}";
+        var pValue = {{ i['p_value'] }};
+        var pResult = "{{ i['p_result'] }}";
+  
+        // Debug statements to check the data
+        console.log(`Debug: staffId=${staffId}, staffName=${staffName}, date=${date}, pValue=${pValue}, pResult=${pResult}`);
+  
+        data.dates.push(date);
+  
+        if (!data.staffData[staffId]) {
+          data.staffData[staffId] = {
+            label: staffName,
+            data: Array(data.dates.length).fill(NaN),
+            emotion: Array(data.dates.length).fill(''), // You can set a default emotion label here
+            borderColor: getRandomColor(),
+            borderWidth: 2,
+            fill: false,
+          };
+        }
+  
+        var dateIndex = data.dates.indexOf(date);
+        data.staffData[staffId].data[dateIndex] = pValue !== null ? pValue : NaN;
+        data.staffData[staffId].emotion[dateIndex] = pResult;
+      {% endfor %}
+  
+      // Filter dates with no data
+      data.dates = [...new Set(data.dates)]; // Remove duplicate dates
+  
+      var datasets = Object.values(data.staffData).map(function (staff) {
+        return {
+          label: staff.label,
+          data: staff.data,
+          borderColor: staff.borderColor,
+          borderWidth: staff.borderWidth,
+          fill: staff.fill,
+        };
+      });
+  
+      var ctx = document.getElementById("emotionChart").getContext("2d");
+      var myChart = new Chart(ctx, {
+        type: "line",
+        data: {
+          labels: data.dates,
+          datasets: datasets,
+        },
+        options: {
+          scales: {
+            x: {
+              type: "category",
+              labels: data.dates,
+            },
+            y: {
+              beginAtZero: true,
+              title: {
+                display: true,
+                text: 'Emotion Score', // Add a label for the Y axis
+              },
+            },
+          },
+          plugins: {
+            tooltip: {
+              callbacks: {
+                title: function (tooltipItem) {
+                  return tooltipItem[0].label;
+                },
+                label: function (context) {
+                  var datasetIndex = context.datasetIndex;
+                  var index = context.dataIndex;
+                  var staff = data.staffData[Object.keys(data.staffData)[datasetIndex]];
+                  return `${staff.label}: ${staff.emotion[index]}`;
+                },
+              },
+            },
+          },
+        },
+      });
+    });
+  
+    function getRandomColor() {
+      var letters = "0123456789ABCDEF";
+      var color = "#";
+      for (var i = 0; i < 6; i++) {
+        color += letters[Math.floor(Math.random() * 16)];
+      }
+      return color;
+    }
+  </script>
+  
+  <!-- ... (your HTML code) ... -->
+  

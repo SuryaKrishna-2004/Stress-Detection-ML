@@ -1,0 +1,52 @@
+{% include 'health_header.html'%}
+<!-- ======= Breadcrumbs ======= -->
+<div class="breadcrumbs d-flex align-items-center" style="background-image: url('static/assets/img/desii.jpg');">
+  <div class="container position-relative d-flex flex-column align-items-center">
+    <div class="container">
+      <div class="row">
+        <h2 data-aos="fade-up">Medication</h2>
+        <blockquote data-aos="fade-up" data-aos-delay="100">
+          <p style="text-align: justify; color: aliceblue;">You can put the necessary medication here.</p>
+        </blockquote>
+      </div>
+    </div>
+  </div>
+</div><!-- End Breadcrumbs -->
+<main id="main">
+
+
+  <!-- ======= Section-2 ======= -->
+  <section id="contact" class="contactt">
+    <div class="container position-relative d-flex flex-column ">
+      <div class="row">
+        <div>
+
+          <form method="post" class="php-email-form">
+            <table style="width: 100%;" cellpadding="6">
+              <tr>
+                <th>Title</th>
+                <td><input type="text" name="title" class="form-control mt-3" required></td>
+              </tr>
+              <tr>
+                <th>Description</th>
+                <td><textarea name="description" cols="30" rows="5" class="form-control mt-3" required></textarea></td>
+              </tr>
+              <tr>
+                <td colspan="2" style="text-align: right;"><input type="submit" class="mt-3" name="submit" value="ADD">
+                </td>
+              </tr>
+            </table>
+        </div>
+      </div>
+    </div>
+  </section><!-- End Section-2 -->
+</main>
+{% include 'footer.html'%}
+
+<style>
+  th {
+
+    font-family: Georgia, 'Times New Roman', Times, serif;
+
+  }
+</style>

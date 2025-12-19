@@ -1,0 +1,165 @@
+{% include 'staff_header.html'%}
+
+<!-- ======= Breadcrumbs ======= -->
+<div class="breadcrumbs d-flex align-items-center" style="background-image: url('static/assets/img/n.jpg');">
+  <div class="container position-relative d-flex flex-column align-items-center">
+    <div class="container">
+      <div class="row">
+        <h2 data-aos="fade-up">Stress Prediction Graph</h2>
+        <blockquote data-aos="fade-up" data-aos-delay="100">
+          <p style="text-align: justify; color: aliceblue;">Here are the most recent changes and updates.</p>
+        </blockquote>
+      </div>
+    </div>
+  </div>
+</div><!-- End Breadcrumbs -->
+
+<main id="main">
+  <!-- ======= Section-2 ======= -->
+  <section id="contact" class="contactt">
+    <div class="container position-relative d-flex flex-column ">
+      <div class="row">
+        <canvas id="emotionChart" width="800" height="400"></canvas>
+      </div>
+    </div>
+  </section><!-- End Section-2 -->
+</main>
+
+{% include 'footer.html'%}
+
+<!-- ... (your HTML code) ... -->
+
+<!-- ... (your HTML code) ... -->
+
+<!-- ... (your HTML code) ... -->
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    var data = {
+      dates: [],
+      staffData: {},
+    };
+
+    {% for i in data['em'] %}
+      var staffId = "{{ i['staff_id'] }}";
+      var staffName = "{{ i['first_name'] }} {{ i['last_name'] }}";
+      var date = "{{ i['date'] }}";
+      var pValue = "{{ i['p_value'] }}";
+      var pResult = "{{ i['p_result'] }}";
+
+      // Debug statements to check the data
+
+      if (!data.staffData[staffId]) {
+        data.staffData[staffId] = {
+          label: staffName,
+          data: [],
+          emotion: [],
+          borderColor: getRandomColor(),
+          borderWidth: 2,
+          fill: false,
+        };
+      }
+
+      data.staffData[staffId].data.push({
+        date: date,
+        value: pValue,
+        emotion: pResult,
+      });
+
+console.log(`Debug: staffId=${staffId}, date=${date}, value=${pValue}, emotion=${pResult}`);
+      
+
+      if (!data.dates.includes(date)) {
+        data.dates.push(date);
+      }
+    {% endfor %}
+
+    // Sort dates
+    data.dates = data.dates.sort();
+
+    var datasets = Object.values(data.staffData).map(function (staff) {
+      var alignedData = alignDataWithDates(staff.data, data.dates);
+      return {
+        label: staff.label,
+        data: alignedData.map(item => item.value),
+        borderColor: staff.borderColor,
+        borderWidth: staff.borderWidth,
+        fill: staff.fill,
+        emotion: alignedData.map(item => item.emotion),
+      };
+    });
+    
+
+    var ctx = document.getElementById("emotionChart").getContext("2d");
+    var myChart = new Chart(ctx, {
+      type: "bar",
+      data: {
+        labels: data.dates,
+        datasets: datasets,
+      },
+      options: {
+        scales: {
+          x: {
+            type: "category",
+            labels: data.dates,
+          },
+          y: {
+            beginAtZero: true,
+            max: 7, // Adjust this to the maximum emotion score value
+          },
+        },
+        plugins: {
+          tooltip: {
+            callbacks: {
+              title: function (tooltipItem) {
+                return tooltipItem[0].label;
+              },
+              label: function (context) {
+                var datasetIndex = context.datasetIndex;
+                var index = context.dataIndex;
+                var dataset = datasets[datasetIndex];
+                
+                // Check if dataset and dataset.emotion are defined
+                if (dataset && dataset.emotion && dataset.emotion[index]) {
+                  return `${dataset.label}: ${dataset.emotion[index]}`;
+                } else {
+                  return `${dataset.label}: N/A`;
+                }
+              },
+            
+            },
+          },
+        },
+      },
+    });
+  });
+
+  function getRandomColor() {
+    var letters = "0123456789ABCDEF";
+    var color = "#";
+    for (var i = 0; i < 6; i++) {
+      color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
+  }
+
+  function alignDataWithDates(data, dates) {
+    var alignedData = [];
+    dates.forEach(function (date) {
+      var dataItem = data.find(item => item.date === date);
+      if (dataItem) {
+        // Log the values during alignment
+        console.log(`Aligning date ${date}: value=${dataItem.value}, emotion=${dataItem.emotion}`);
+        alignedData.push({ value: dataItem.value, emotion: dataItem.emotion });
+      } else {
+        alignedData.push({ value: null, emotion: null });
+      }
+    });
+    return alignedData;
+  }
+  
+  
+  
+
+</script>

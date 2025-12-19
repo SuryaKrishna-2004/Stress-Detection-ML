@@ -1,0 +1,72 @@
+{% include 'health_header.html'%}
+
+<!-- ======= Breadcrumbs ======= -->
+<div class="breadcrumbs d-flex align-items-center" style="background-image: url('static/assets/img/12.png');">
+  <div class="container position-relative d-flex flex-column align-items-center">
+    <div class="container">
+      <div class="row">
+        <h2 data-aos="fade-up">Scheduling Appointment</h2>
+      </div>
+    </div>
+  </div>
+</div><!-- End Breadcrumbs -->
+
+<main id="main">
+
+
+  <!-- ======= Section-2 ======= -->
+  <section id="contact" class="contactt">
+    <div class="container position-relative d-flex flex-column ">
+      <div class="row">
+        <div>
+
+
+          <!-- <h1 style="color: #06567b;">Schedule Appointment</h1> -->
+
+          <br>
+          <form action="" method="post" class="php-email-form">
+            <table style="width: 400px; " cellpadding="6">
+              <tr>
+                <th> <span style="font-size: 20px;font-family: Georgia, 'Times New Roman', Times, serif;">Date</span>
+                </th>
+              </tr>
+              <tr>
+                <td style="width: 200px;"><input type="date" id="dateField" name="a_date" class="form-control mt-3 "
+                    required></td>
+              </tr>
+              <!-- <tr>
+                <th>For Staff ID</th>
+                <td style="width: 400px;"><input type="text"   name="id" value='{{id}}' class="form-control mt-3" required disabled></td>
+              </tr> -->
+              <tr>
+                <td colspan="2" style="text-align: right;"><br><input type="submit" name="submit" value="Schedule"></td>
+              </tr>
+            </table>
+          </form>
+        </div>
+      </div>
+    </div>
+    <br><br><br><br>
+  </section><!-- End Section-2 -->
+</main>
+
+<script>
+  var dateField = document.getElementById("dateField");
+  var today = new Date();
+  var dd = String(today.getDate()).padStart(2, '0');
+  var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+  var yyyy = today.getFullYear();
+
+  today = yyyy + '-' + mm + '-' + dd;
+  dateField.setAttribute("min", today);
+</script>
+{% include 'footer.html'%}
+
+<style>
+  th {
+    color: #06567b;
+    font-size: 20px;
+    font-weight: 600;
+    font-family: 'Times New Roman', Times, serif;
+  }
+</style>

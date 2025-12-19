@@ -1,0 +1,181 @@
+{% include 'staff_header.html'%}
+
+<!-- ======= Breadcrumbs ======= -->
+<div class="breadcrumbs d-flex align-items-center" style="background-image: url('static/assets/img/ooo.png');">
+    <div class="container position-relative d-flex flex-column align-items-center">
+        <div class="container">
+            <div class="row">
+                <h2 data-aos="fade-up">About Doctors</h2>
+                <blockquote data-aos="fade-up" data-aos-delay="100">
+                    <p style="text-align: justify; color: aliceblue;">Make appointment after knowing about doctors.</p>
+                </blockquote>
+            </div>
+        </div>
+    </div>
+</div><!-- End Breadcrumbs -->
+<main id="main">
+    <!-- ======= Section-2 ======= -->
+    <section id="contact" class="contactt">
+        <div class="container position-relative d-flex flex-column ">
+            <div class="row">
+                <div>
+                    <!-- <h1 style="color: #06567b;">Search Doctors</h1> -->
+                    <br>
+                    <form method="post" class="php-email-form">
+                        <table align="left">
+                            <tr>
+                                <td style="text-align: center;"><label
+                                        style="font-size:large ;color: #06567b;font-weight: 600; ">Search
+                                        By</label>&emsp;</td>
+                                <td><select name="category" id="small">
+                                        <option value="all">List All </option>
+                                        <option value="name">First Name</option>
+                                        <option value="namee">Last Name</option>
+
+                                        <!-- <option value="all">All Doctors</option> -->
+                                        <!-- <option value="designation">Designation</option> -->
+                                    </select>&emsp;</td>
+
+
+
+
+                                <td>
+                                    <input type="text" class="form-control" name="search"
+                                        placeholder="Search for doctors">
+
+                                </td>
+                                <td><input type="submit" name="searchbtn" value="Search"></td>
+                            </tr>
+
+
+                        </table>
+                    </form>
+
+                    {%if item['view']%}
+                    <br>
+                    <br>
+
+                    <!-- <h2 style="color: #06567b;">Details</h2> -->
+                    <div class="container " style="width: 900px;">
+                        {% for i in item['view']%},
+
+                        <div class="cards" style="margin-left: -200px;">
+
+                            <div class="cards-box">
+                                <h1 class="cards-title">Dr. {{i['h_fname']}} {{i['h_lname']}}</h1><br>
+
+                                <div class="cards-content">
+                                    <p>Email ID: {{i['h_email_id']}}
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="cards-footer">
+                                <a href="/staff_more_health_team_detail?action=view&id={{i['health_id']}}"
+                                    style="font-size: 10px; display: inline-block;border-radius: 50px;transition: 0.5s;color: #fff;background: #1f98d1;">KNOW
+                                    MORE</a>
+                            </div>
+                        </div>
+                        {%endfor%}
+
+                        {%endif%}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section><!-- End Section-2 -->
+</main>
+
+<style>
+    .cards {
+        width: 100%;
+        height: 90px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12), 0 4px 3px rgba(0, 0, 0, 0.24);
+        transition: all 0.3s cubic-bezier(.25, .8, .25, 1);
+        border-radius: 10px;
+        overflow: hidden;
+        margin: 0 auto;
+    }
+
+
+    .cards-box {
+        padding-top: 15px;
+        padding-left: 20px;
+        height: 20px;
+    }
+
+    .cards-title {
+        margin: 0;
+        margin-bottom: -10px;
+        padding: 0;
+        padding-top: 2px;
+        font-size: 24px;
+        font-weight: 700;
+    }
+
+    .cards-content p {
+        line-height: 1em;
+    }
+
+    .cards-footer {
+        display: block;
+        margin-top: -10px;
+        margin-left: 750px;
+        padding: 0px 19px 2px;
+    }
+
+    .cards-footer a {
+        /* text-decoration: none; */
+        /* font-weight: 600; */
+        padding: 8px 10px;
+        display: inline-block;
+        position: relative;
+        overflow: hidden;
+        border-radius: 2px;
+        text-align: center;
+    }
+
+    .cards-footer a:after {
+        content: '';
+        display: block;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        margin-left: -60px;
+        margin-top: -60px;
+        background: #3f51b5;
+        border-radius: 100%;
+        opacity: .6;
+
+        transform: scale(0);
+    }
+
+    @keyframes ripple {
+        0% {
+            transform: scale(0);
+        }
+
+        20% {
+            transform: scale(1);
+        }
+
+        100% {
+            opacity: 0;
+            transform: scale(1);
+            border-radius: 2px;
+        }
+    }
+
+    a:not(:active):after {
+        animation: ripple 1s ease-out;
+    }
+
+    a:after {
+        visibility: hidden;
+    }
+
+    a:focus:after {
+        visibility: visible;
+    }
+</style>
+{% include 'footer.html'%}

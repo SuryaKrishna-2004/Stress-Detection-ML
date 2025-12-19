@@ -1,0 +1,87 @@
+{% include 'health_header.html'%}
+
+
+<!-- ======= Breadcrumbs ======= -->
+<div class="breadcrumbs d-flex align-items-center" style="background-image: url('static/assets/img/q11.jpeg');">
+  <div class="container position-relative d-flex flex-column align-items-center">
+    <div class="container">
+      <div class="row">
+        <h2 data-aos="fade-up">Test Results</h2>
+        <blockquote data-aos="fade-up" data-aos-delay="100">
+          <p style="text-align: justify; color: aliceblue;">Here, you may check the employee's results</p>
+        </blockquote>
+      </div>
+    </div>
+  </div>
+</div><!-- End Breadcrumbs -->
+
+<main id="main">
+
+  <!-- ======= Section-2 ======= -->
+  <section id="contact">
+    <div class="container position-relative d-flex flex-column ">
+      <div class="row">
+        <div>
+          {%if data['view']%}
+          <!-- <h1 style="color: #06567b;">Your Appointments</h1> -->
+
+          <form method="post">
+            <table class="table  "
+              style="color:#1A5276; font-size: larger;font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif">
+
+              <tr class="" style="background-color: #1A5276;">
+                <th style="width: fit-content;">S No.</th>
+                <th style="width: fit-content;">Name</th>
+                <th style="width: fit-content;">Gender</th>
+                <th style="width: fit-content;">Contact No.</th>
+                <th style="width: fit-content;">Email ID</th>
+                <th style="width: fit-content;">Results</th>
+                <!-- <th>Add medication</th> -->
+              </tr>
+
+              {%for row in data['view']%}
+              <tr>
+                <td>{{loop.index}}</td>
+                <td>{{row['first_name'] +" " +row['last_name']}}</td>
+                <td>{{row['gender']}}</td>
+                <td>{{row['s_phone_no']}}</td>
+                <td>{{row['s_email_id']}}</td>
+                <td style="font-style: normal ;"><a href="health_view_result?id={{row['staff_id']}}">Click!!</a></td>
+              </tr>
+              {%endfor%}
+            </table>
+          </form>
+          {%endif%}
+        </div>
+      </div>
+    </div>
+    <br><br><br><br><br><br><br>
+  </section><!-- End Section-2 -->
+</main>
+{% include 'footer.html'%}
+<style>
+  td,
+  a {
+    font-style: italic;
+
+  }
+
+  th {
+    font-weight: 500;
+    color: white;
+  }
+
+  a {
+    color: #1f98d1;
+    text-decoration: none;
+    transition: 0.3s;
+    font-weight: 900;
+    font-style: normal;
+  }
+
+  a:hover {
+    color: #d11f1f;
+    text-decoration: none;
+    transition: 0.3s;
+  }
+</style>

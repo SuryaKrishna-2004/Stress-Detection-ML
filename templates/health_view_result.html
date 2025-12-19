@@ -1,0 +1,93 @@
+{% include 'health_header.html'%}
+<!-- ======= Breadcrumbs ======= -->
+<div class="profile">
+  <div class="breadcrumbs d-flex align-items-center" style="background-color: #1b2f45">
+  </div><!-- End Breadcrumbs -->
+  <div>
+    <main id="main">
+
+
+
+      <!-- ======= Section-2 ======= -->
+      <section id="contact">
+        <div class="container position-relative d-flex flex-column ">
+          <div class="row">
+            <div>
+              <br><br><br>
+              {%if data['view']%}
+              <h1
+                style="color:#06567b;; font-size: 55px;font-weight: 600;font-family: Georgia, 'Times New Roman', Times, serif; text-align: center;">
+                Result of <span
+                  style="font-weight: 800;font-style: italic; color: hsl(0, 88%, 53%);">&nbsp;{{data['view'][0]['first_name']}}&nbsp;{{data['view'][0]['last_name']}}</span>
+              </h1>
+              <br>
+              <br>
+              <br>
+              <form action="" method="post" class="php-email-form">
+                <table style="width: 100%;  " cellpadding="6" align="center">
+                  <tr>
+                    <td><textarea name="result" rows="1" class="form-control mt-3"
+                        style="color: #06567b; font-size: 40px;padding: 30px 2px;font-family: 'Times New Roman', Times, serif;text-align: center;font-style: italic;"
+                        readonly>Depression Test Result&nbsp;:&nbsp;"{{v}}"</textarea>
+                    </td>
+                  </tr>
+
+                </table>
+              </form>
+              <br>
+
+              {%if v!='No Depression'%}
+
+              {%if data['view1']%}
+              <p align="right">
+                <span><a href="health_view_staff" class="btn-get-started">Appointment Already Scheduled</a></span>
+              </p>
+
+              {%else%}
+              <p align="right">
+                <span><a href="health_schedule_appointment?action=make&id={{data['view'][0]['staff_id']}}"
+                    class="btn-get-started">Schedule
+                    Appointment</a></span>
+              </p>
+              {%endif%}
+              {%endif%}
+
+              {%endif%}
+            </div>
+          </div>
+        </div>
+        <br><br><br>
+      </section><!-- End Section-2 -->
+    </main>
+
+    {% include 'footer.html'%}
+
+
+
+    <style>
+      .center {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        width: 50%;
+      }
+
+      .btn-get-started {
+        font-family: var(--font-secondary);
+        font-weight: 500;
+        font-size: 15px;
+        letter-spacing: 1px;
+        display: inline-block;
+        padding: 12px 30px;
+        border-radius: 50px;
+        transition: 0.5s;
+        color: #fff;
+        background: #06567b;
+        ;
+      }
+
+      .btn-get-started:hover {
+        background: #d11f1f;
+        color: #fff;
+        ;
+      }

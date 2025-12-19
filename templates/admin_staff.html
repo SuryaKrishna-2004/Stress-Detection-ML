@@ -1,0 +1,299 @@
+{% include 'admin_header.html'%}
+
+<!-- ======= Hero Section ======= -->
+<!-- ======= Breadcrumbs ======= -->
+<div class="breadcrumbs d-flex align-items-center" style="background-image: url('static/assets/img/jiii.jpg');">
+    <div class="container position-relative d-flex flex-column align-items-center">
+        <div class="container">
+            <div class="row">
+                <h2 data-aos="fade-up">Manage Employee</h2>
+                <blockquote data-aos="fade-up" data-aos-delay="100">
+                    <p style="text-align: justify; color: aliceblue;">You can create a login for new employees and
+                        update and delete their information.</p>
+                </blockquote>
+            </div>
+        </div>
+    </div>
+</div><!-- End Breadcrumbs -->
+
+
+<main id="main">
+
+    <!-- ======= Section-2 ======= -->
+    <section id="contact" class="contactt">
+        <div class="container position-relative d-flex flex-column ">
+            <div class="row">
+                <div>
+                    <br>
+                    {% if data['upd']%}
+                    <h1 align="center"
+                        style="color: #06567b; font-weight: 500; font-size: 48px;font-family:Georgia, 'Times New Roman', Times, serif;">
+                        <u>Update Employee Details</u>
+                    </h1>
+                    <br>
+                    <form method="post" class="php-email-form">
+                        <table style="width: 50%; " cellpadding="6">
+                            <tr>
+                                <th>First Name</th>
+                                <td><input type="text" pattern="[A-Za-z ]{1,32}"
+                                        title="Please enter employee first name" name="first"
+                                        value="{{data['upd'][0]['first_name']}}" class="form-control mt-3" required>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Last Name</th>
+                                <td><input type="text" pattern="[A-Za-z ]{1,32}" title="Please enter employee last name"
+                                        name="last" value="{{data['upd'][0]['last_name']}}" class="form-control mt-3">
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Gender</th>
+                                <td>{%if data['upd'][0]['gender']=='Male' %}
+                                    &emsp;<input type="radio" name="gender" value="Male" class="mt-3 "
+                                        checked>&nbsp;&nbsp;Male&emsp; &emsp;<input type="radio" name="gender"
+                                        value="Female">&nbsp;&nbsp;Female&emsp; &emsp;<input type="radio" name="gender"
+                                        value="Others">&nbsp;&nbsp;Others
+                                    {%elif data['upd'][0]['gender']=='Female'%}
+                                    &emsp;<input type="radio" name="gender" value="Male"
+                                        class="mt-3 ">&nbsp;&nbsp;Male&emsp; &emsp;<input type="radio" name="gender"
+                                        value="Female" checked>&nbsp;&nbsp;Female&emsp; &emsp;<input type="radio"
+                                        name="gender" value="Others">&nbsp;&nbsp;Others
+                                    {%else%}
+                                    &emsp;<input type="radio" name="gender" value="Male"
+                                        class="mt-3 ">&nbsp;&nbsp;Male&emsp; &emsp;<input type="radio" name="gender"
+                                        value="Female">&nbsp;&nbsp;Female&emsp; &emsp;<input type="radio" name="gender"
+                                        value="Others" checked>&nbsp;&nbsp;Others
+                                    {%endif%}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>DOB</th>
+                                <td><input type="date" name="dob" value="{{data['upd'][0]['dob']}}"
+                                        class="form-control mt-3" id="add_d" required></td>
+                            </tr>
+                            <tr>
+                                <th>Phone No</th>
+                                <td><input type="tel" name="phone_no" value="{{data['upd'][0]['s_phone_no']}}"
+                                        pattern="[6789][0-9]{9}" title="Please enter valid phone number"
+                                        class="form-control mt-3" required></td>
+                            </tr>
+                            <tr>
+                                <th>Email ID</th>
+                                <td><input type="email" name="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+                                        title="Please enter valid email Id" value="{{data['upd'][0]['s_email_id']}}"
+                                        class="form-control mt-3" required></td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" style="text-align: right;"><input type="submit" name="update"
+                                        value="UPDATE" class="mt-3"></td>
+                            </tr>
+
+                        </table>
+                    </form>
+
+                    {%else%}
+                    <h1 align="center"
+                        style="color: #06567b; font-weight: 500; font-size: 48px;font-family:Georgia, 'Times New Roman', Times, serif;">
+                        <u>Employee Registration</u>
+                    </h1><br>
+                    <br>
+                    <form method="post" class="php-email-form" enctype="multipart/form-data">
+                        <table style="width: 45%;" cellpadding="6">
+                            <tr>
+                                <th style="width: 30%">First Name</th>
+                                <td><input type="text" name="first" pattern="[A-Za-z ]{1,32}"
+                                        title="Please enter employee first name" class="form-control mt-3"
+                                        placeholder="First Name" required></td>
+                            </tr>
+                            <tr>
+                                <th>Last Name</th>
+                                <td><input type="text" name="last" pattern="[A-Za-z ]{1,32}"
+                                        title="Please enter employee last name" class="form-control mt-3"
+                                        placeholder="Last Name"></td>
+                            </tr>
+                            <tr>
+                                <th>Gender</th>
+                                <div>
+                                    <td>
+                                        &emsp;<input type="radio" name="gender" value="Male" class="mt-3 "
+                                            required>&nbsp;&nbsp;<label>Male</label> &emsp; &emsp;
+                                        <input type="radio" name="gender" value="Female" required>&nbsp;&nbsp;<label>
+                                            Female</label> &emsp; &emsp;
+                                        <input type="radio" name="gender" value="Others" required>&nbsp;&nbsp;<label>
+                                            Others</label>
+                                    </td>
+                                </div>
+                            </tr>
+
+                            <tr>
+                                <th>DOB</th>
+                                <td><input type="date" name="dob" class="form-control mt-3 " id="add_d" required></td>
+                            </tr>
+                            <tr>
+                                <th>Phone No</th>
+                                <td><input type="tel" name="phone_no" class="form-control mt-3" pattern="[6789][0-9]{9}"
+                                        title="Please enter valid phone number" placeholder="Phone Number" required>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Email ID</th>
+                                <td><input type="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+                                        title="Please enter valid email Id" name="email" class="form-control mt-3"
+                                        placeholder="Email ID" required></td>
+                            </tr>
+                            <tr>
+                                <th>Designation</th>
+
+                                <td><select name="designation" class="mt-3" required>
+                                        <option value=""></option>
+                                        {% for i in data['sel']%}
+                                        <option value="{{i['designation_id']}}">{{i['designation_name']}}</option>
+                                        {%endfor%}
+                                    </select></td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td style="color: crimson;text-align: center;font-style: italic;" colspan="2"><br>
+                                    Upload three images of the employee for training the system!!!!!!!
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Image 1</th>
+                                <td><input type="file" name="img1" id="" class="mt-3 form-control"></td>
+                            </tr>
+                            <tr>
+                                <th>Image 2</th>
+                                <td><input type="file" name="img2" class="mt-3 form-control"></td>
+                            </tr>
+                            <tr>
+                                <th>Image 3</th>
+                                <td><input type="file" name="img3" class="mt-3 form-control"></td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" style="text-align: right;"><input type="submit" name="submit"
+                                        value="ADD" class="mt-3">
+                                </td>
+                            </tr>
+
+                        </table>
+                    </form>
+                    {%endif%}
+                    <br>
+                    <hr>
+                    <br><br>
+                    <form method="post" class="php-email-form">
+                        <table align="left">
+                            <tr>
+                                <td style="text-align: center;"><label
+                                        style="font-size:20px ;color: #06567b;font-weight: 800;font-family: 'Times New Roman', Times, serif; ">Search
+                                        By</label>&emsp;</td>
+                                <td><select name="category" id="small">
+                                        <option value="all">List All</option>
+                                        <option value="name">First Name</option>
+                                        <option value="namee">Last Name</option>
+                                        <option value="designation">Designation</option>
+                                        <!-- <option value="all">All Employee</option> -->
+                                    </select>&emsp;</td>
+
+
+
+
+                                <td>
+                                    <input type="text" class="form-control" name="search"
+                                        placeholder="Search for Employee">
+
+                                </td>
+                                <td><input type="submit" name="searchbtn" value="Search"></td>
+                            </tr>
+
+
+                        </table>
+                    </form>
+                    {%if item['view']%}
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <table class="table hello">
+                        <tr style="background-color: #046795ee;">
+                            <th>S No.</th>
+                            <th>Employee Name</th>
+                            <th>Phone No.</th>
+                            <th>Email ID</th>
+                            <th style="width: 11px;">Edit</th>
+                            <th style="width: 11px;">Delete</th>
+                            <th style="width: 11px;">More</th>
+                        </tr>
+                        {%for i in item['view']%}
+                        <tr>
+                            <td>{{loop.index}}</td>
+                            <td>{{i['first_name']}} {{i['last_name']}}</td>
+                            <td>{{i['s_phone_no']}}</td>
+                            <td>{{i['s_email_id']}}</td>
+                            <td align="center" style="font-size: 25px;"><a href="?action=update&id={{i['staff_id']}}"
+                                    class="bi bi-pencil-square"></a></td>
+                            <td align="center" style="font-size: 25px;"><a href="?action=delete&id={{i['staff_id']}}"
+                                    class="bi bi-trash3-fill"></a></td>
+                            <td align="center" style="font-size: 25px;"><a
+                                    href="/more_detail?action=view&id={{i['staff_id']}}" class="bi bi-three-dots"></a>
+                            </td>
+                        </tr>
+                        {%endfor%}
+                    </table>
+                    {%else%}
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <p style="font-size: medium; color: crimson; font-style: italic;font-family: 'Times New Roman', Times, serif;"
+                        align="center">List Empty !!!</p>
+                    {%endif%}
+                </div>
+            </div>
+        </div>
+    </section><!-- End Section-2 -->
+
+</main>
+
+<script>
+    const d = new Date();
+    const e = new Date();
+    d.setFullYear(d.getFullYear() - 60);
+    e.setFullYear(e.getFullYear() - 18);
+    var min = d.toISOString().split('T')[0];
+    var max = e.toISOString().split('T')[0];
+    var inputt = document.getElementById("add_d");
+    // var input = document.getElementById("upd_d");
+    inputt.setAttribute("max", max);
+    inputt.setAttribute("min", min);
+// input.setAttribute("max",max);
+// input.setAttribute("min",min);
+</script>
+
+{% include 'footer.html'%}
+
+<style>
+    .hello th {
+        font-family: Georgia, 'Times New Roman', Times, serif;
+        font-weight: 500;
+        font-size: 17px;
+        color: #ffffff;
+    }
+
+    th {
+        font-family: Georgia, 'Times New Roman', Times, serif;
+        font-weight: 800;
+        font-size: 18px;
+        color: #06567b;
+
+    }
+
+
+    a {
+        color: #06567b;
+    }
+
+    a:hover {
+        color: crimson;
+    }
+</style>

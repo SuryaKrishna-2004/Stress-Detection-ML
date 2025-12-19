@@ -1,0 +1,116 @@
+{% include 'staff_header.html'%}
+
+
+<!-- ======= Breadcrumbs ======= -->
+<div class="profile">
+  <div class="breadcrumbs d-flex align-items-center" style="background-color: black;">
+
+  </div><!-- End Breadcrumbs -->
+  <div>
+
+
+<div style="margin-bottom: 1em;  background:url('/static/56685433_large1300.jpg') ; height: 800px; width: 100%; background-size: cover;" >
+ 
+<br><br><br><br>
+    
+              {%if data['view']%}
+              <h1
+                style="color:#06567b;; font-size: 55px;font-weight: 600;font-family: Georgia, 'Times New Roman', Times, serif; text-align: center;">
+                Result of <span
+                  style="font-weight: 800;font-style: italic; color: hsl(0, 88%, 53%);">&nbsp;{{data['view'][0]['first_name']}}&nbsp;{{data['view'][0]['last_name']}}</span>
+              </h1>
+              <br>
+              <br>
+              <br>
+              <form action="" method="post" class="php-email-form">
+                <table style="width: 100%;  " cellpadding="6" align="center">
+                  <tr>
+                    <td>
+
+                        {% if v=="Severe Depression"%}
+                        <p style="color: #EE4B2B; font-size: 40px;padding: 30px 2px;font-family: 'Times New Roman', Times, serif;text-align: center;font-style: italic;">
+                      Depression Test Result&nbsp;:&nbsp;"{{v}}"
+                      </p>
+                      {% elif v=="Moderate Depression"%}
+                        <p style="color: #880808; font-size: 40px;padding: 30px 2px;font-family: 'Times New Roman', Times, serif;text-align: center;font-style: italic;">
+                      Depression Test Result&nbsp;:&nbsp;"{{v}}"
+                      </p>
+                      </p>
+                      {% elif v=="Mild Depression"%}
+                        <p style="color: #CC5500; font-size: 40px;padding: 30px 2px;font-family: 'Times New Roman', Times, serif;text-align: center;font-style: italic;">
+                      Depression Test Result&nbsp;:&nbsp;"{{v}}"
+                      </p>
+                       </p>
+                      {% elif v=="Moderately Severe Depression"%}
+                        <p style="color: #D22B2B; font-size: 40px;padding: 30px 2px;font-family: 'Times New Roman', Times, serif;text-align: center;font-style: italic;">
+                      Depression Test Result&nbsp;:&nbsp;"{{v}}"
+                      </p>
+
+                      </p>
+                      {% elif v=="No Depression"%}
+                        <p style="color: green ; font-size: 40px;padding: 30px 2px;font-family: 'Times New Roman', Times, serif;text-align: center;font-style: italic;">
+                      Depression Test Result&nbsp;:&nbsp;"{{v}}"
+                      </p>
+
+                      {% endif %}
+
+                    </td>
+
+                  </tr>
+
+
+                </table>
+              </form>
+              <br>
+
+              {%if v!='No Depression'%}
+
+              {%if data['view1']%}
+              <p align="right">
+                <span><a href="health_view_staff" class="btn-get-started">Appointment Already Scheduled</a></span>
+              </p>
+
+              {%else%}
+              <p align="right">
+                <span><a href="staff_make_appointment?action=make&id={{data['view'][0]['staff_id']}}"
+                    class="btn-get-started">Schedule
+                    Appointment</a></span>
+              </p>
+              {%endif%}
+              {%endif%}
+
+              {%endif%}
+
+    {% include 'footer.html'%}
+
+     </div>
+
+
+
+    <style>
+      .center {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        width: 50%;
+      }
+
+      .btn-get-started {
+        font-family: var(--font-secondary);
+        font-weight: 400;
+        font-size: 15px;
+        letter-spacing: 1px;
+        display: inline-block;
+        padding: 12px 30px;
+        border-radius: 50px;
+        transition: 0.5s;
+        color: #fff;
+        background: #06567b;
+        ;
+      }
+
+      .btn-get-started:hover {
+        background: #d11f1f;
+        color: #fff;
+        ;
+      }

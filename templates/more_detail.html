@@ -1,0 +1,111 @@
+{%include 'admin_header.html' %}
+{%if data['basic']%}
+{%for i in data['basic']%}
+<div class="breadcrumbs d-flex align-items-center" style="background-image: url('static/assets/img/jiii.jpg');">
+    <div class="container position-relative d-flex flex-column align-items-center">
+        <div class="container">
+            <div class="row">
+                <h2 data-aos="fade-up">{{i['first_name']}} {{i['last_name']}}'s Details</h2>
+                <blockquote data-aos="fade-up" data-aos-delay="100">
+                    <p style="text-align: justify; color: aliceblue;">Know more about your Employee.</p>
+                </blockquote>
+            </div>
+        </div>
+    </div>
+</div><!-- End Breadcrumbs -->
+
+
+<main id="main">
+<!-- ======= Section-2 ======= -->
+<section id="contact" class="contactt">
+    <div class="container position-relative d-flex flex-column ">
+      <div class="row">
+        <div>
+           
+          <!-- <h1 style="color: #06567b;">Know More..</h1> -->
+          <br>
+          <!-- <form method="post" class="php-email-form">
+            <table style="width: 500px; " cellpadding="6">
+              
+            </table>
+          </form> -->
+        
+          <table class="table">
+
+            <tr>
+              <th>Full Name</th>
+              <td>{{i['first_name']}} {{i['last_name']}}</td>
+            </tr>
+            {%if data['basic'][0]['s_photo']%}
+            <tr>
+                <th>Photo</th>
+                <td><img src="{{i['s_photo']}}" width="132px" height="170px" alt="Photo Not added Yet"></td>
+            </tr>
+            {%endif%}
+            <tr>
+                <th>Gender</th>
+                <td>{{i['gender']}}</td>
+            </tr>
+            <tr>
+                <th>DOB</th>
+                <td>{{i['dob']}}</td>
+            </tr>
+            {%if data['paddr'][0]['pincode']%}
+            {%for j in data['paddr']%}
+            <tr>
+                <th>Permanent Address</th>
+                <td>{{j['address_line1']}}, {{j['address_line2']}} <br> {{j['landmark']}}, {{j['city']}} <br> {{j['state']}}, {{j['country']}}, {{j['pincode']}}</td>
+            </tr>
+            {%endfor%}
+            {%endif%}
+            {%if data['caddr'][0]['c_pincode']%}
+            {%for k in data['caddr']%}
+            <tr>
+                <th>Communication Address</th>
+                <td>{{k['c_address_line1']}}, {{k['c_address_line2']}} <br> {{k['c_landmark']}}, {{k['c_city']}} <br> {{k['c_state']}}, {{k['c_country']}}, {{k['c_pincode']}}</td>
+            </tr>
+            {%endfor%}
+            {%endif%}
+            <tr>
+                <th>Phone Number</th>
+                <td>{{i['s_phone_no']}}</td>
+            </tr>
+            {%if data['basic'][0]['as_phone_no']%}
+            <tr>
+                <th>Alternate Phone Number</th>
+                <td>{{i['as_phone_no']}}</td>
+            </tr>
+            {%endif%}
+            
+            <tr>
+                <th>Email ID</th>
+                <td>{{i['s_email_id']}}</td>
+            </tr>
+            {%if data['basic'][0]['as_email_id']%}
+            <tr>
+                <th>Alternate Email ID</th>
+                <td>{{i['as_email_id']}}</td>
+            </tr>
+            {%endif%}
+            {%if data['basic'][0]['s_resume']%}
+            <tr>
+                <th>Resume</th>
+                <td><a href="{{i['s_resume']}}">View</a></td>
+            </tr>
+            {%endif%}
+            {%if data['basic'][0]['s_certificate']%}
+            <tr>
+                <th>Certificate</th>
+                <td><a href="{{i['s_certificate']}}">View</a></td>
+            </tr>
+            {%endif%}
+            {%endfor%}
+  
+          </table>
+  
+          {%endif%}
+        </div>
+      </div>
+    </div>
+  </section><!-- End Section-2 -->
+  {% include 'footer.html'%}

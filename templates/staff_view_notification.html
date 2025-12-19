@@ -1,0 +1,84 @@
+{% include 'staff_header.html'%}
+<!-- ======= Breadcrumbs ======= -->
+<div class="breadcrumbs d-flex align-items-center" style="background-image: url('static/assets/img/n.jpg');">
+  <div class="container position-relative d-flex flex-column align-items-center">
+    <div class="container">
+      <div class="row">
+        <h2 data-aos="fade-up">Notification</h2>
+        <blockquote data-aos="fade-up" data-aos-delay="100">
+          <p style="text-align: justify; color: aliceblue;">Here are the most recent changes and updates.</p>
+        </blockquote>
+      </div>
+    </div>
+  </div>
+</div><!-- End Breadcrumbs -->
+<main id="main">
+
+  <!-- ======= Section-2 ======= -->
+  <section id="contact" class="contactt">
+    <div class="container position-relative d-flex flex-column ">
+      <div class="row">
+
+        <div>
+          {%if data['view']%}
+          <!-- <h1 style="color: #06567b;">View Notification</h1> -->
+          <br>
+          <form method="post" class="php-email-form">
+            <br>
+            <table class="table table-hover">
+              <tr class="table-info">
+                <th>Notified On</th>
+                <th>About</th>
+
+                <th>From</th>
+              </tr>
+              {% for i in data['view']%}
+              <tr>
+                <td>{{i['date']}}</td>
+                <td>{{i['notification_des']}}</td>
+
+                <td>{{i['user_type']}}</td>
+              </tr>
+              {%endfor%}
+            </table>
+            <br><br><br><br>
+          </form>
+          {%endif%}
+        </div>
+
+      </div>
+      <div class="row">
+
+        <div>
+          {%if data['view1']%}
+          <!-- <h1 style="color: #06567b;">View Notification</h1> -->
+          <br>
+          <form method="post" class="php-email-form">
+            <br>
+            <table class="table table-hover">
+              <tr class="table-info">
+                <th>Notified On</th>
+                <th>About</th>
+
+                <th>From</th>
+              </tr>
+              {% for i in data['view1']%}
+              <tr>
+                <td>{{i['date']}}</td>
+                <td>{{i['notification_des']}}</td>
+
+                <td>{{i['user_type']}}</td>
+              </tr>
+              {%endfor%}
+            </table>
+            <br><br><br><br>
+          </form>
+          {%endif%}
+        </div>
+
+      </div>
+    </div>
+  </section><!-- End Section-2 -->
+</main>
+
+{% include 'footer.html'%}

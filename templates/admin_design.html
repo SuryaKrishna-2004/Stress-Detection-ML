@@ -1,0 +1,90 @@
+{% include 'admin_header.html'%}
+<!-- ======= Breadcrumbs ======= -->
+<div class="breadcrumbs d-flex align-items-center" style="background-image: url('static/assets/img/desii.jpg');">
+    <div class="container position-relative d-flex flex-column align-items-center">
+        <div class="container">
+            <div class="row">
+                <h2 data-aos="fade-up">Manage Designation</h2>
+                <blockquote data-aos="fade-up" data-aos-delay="100">
+                    <p style="text-align: justify; color: aliceblue;">Add, Delete and Update Designation</p>
+                </blockquote>
+            </div>
+        </div>
+    </div>
+</div><!-- End Breadcrumbs -->
+<main id="main">
+    <section id="contact" class="contactt">
+        <div class="container position-relative d-flex flex-column ">
+            <div class="row">
+                <div>
+                    <br>
+                    <br>
+                    {% if data['upd']%}
+                    <h1
+                        style="color: #06567b; font-weight: 500; font-size: 45px;font-family:Georgia, 'Times New Roman', Times, serif;">
+                        Update Designation</h1><br>
+                    <form method="post" class="php-email-form">
+                        <table style="width: 500px;" cellpadding="6">
+                            <tr>
+                                <td><input type="text" name="designation" pattern="[A-Za-z.,() ]{1,50}"
+                                        title="Please enter valid designation" class="form-control mt-3"
+                                        value="{{data['upd'][0]['designation_name']}}" required></td>
+                                <td><input type="submit" name="update" class="form-control mt-3" value="UPDATE">
+                                </td>
+                            </tr>
+                        </table>
+                    </form>
+                    {%else%}
+                    <h1
+                        style="color: #06567b; font-weight: 500; font-size: 45px;font-family:Georgia, 'Times New Roman', Times, serif;">
+                        Add Designation</h1><br>
+                    <form method="post" class="php-email-form">
+                        <table style="width: 500px; " cellpadding="6">
+                            <tr>
+                                <td><input type="text" pattern="[A-Za-z.(), ]{1,50}"
+                                        title="Please enter valid designation" name="designation"
+                                        class="form-control mt-3" required></td>
+                                <td><input type="submit" name="submit" class="form-control mt-3" value="ADD">
+                                </td>
+                            </tr>
+                        </table>
+                    </form>
+                    <br>
+                    {%endif%}
+                    {%if data['view']%}
+                    <br>
+                    <br>
+                    <hr>
+                    <!-- <h1
+                        style="color: #06567b; font-weight: 500; font-size: 45px;font-family:Georgia, 'Times New Roman', Times, serif;"> -->
+                    <!-- List</h1><br> -->
+                    <table class="table table-borderless" id="something">
+                        <tr style="font-size: 30px; ;font-family: 'Times New Roman', Times, serif;font-weight: 800;">
+                            <th>
+                        </tr>
+                        <th></th>
+                        <th></th>
+                        </tr>
+                        {% for i in data['view']%}
+                        <tr style="font-size: 25px;font-style: italic ;font-family: 'Times New Roman', Times, serif;">
+                            <td>{{loop.index}}.</td>
+                            <td>{{i['designation_name']}}</td>
+                            <td><a href="?action=update&id={{i['designation_id']}}" class="btn-get-started">Update</a>
+                            </td>
+                            <td><a href="?action=delete&id={{i['designation_id']}}" class="btn-get-started">Delete</a>
+                            </td>
+                        </tr>
+                        {%endfor%}
+                    </table>
+                    {%else%}
+                    <br>
+                    <br>
+                    <p style="font-size: medium; color: crimson; font-style: italic;font-family: 'Times New Roman', Times, serif;"
+                        align="center">List Empty !!!</p>
+                    {%endif%}
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+{% include 'footer.html'%}

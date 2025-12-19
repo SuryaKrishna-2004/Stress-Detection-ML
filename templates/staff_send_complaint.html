@@ -1,0 +1,67 @@
+{% include 'staff_header.html'%}
+<!-- ======= Breadcrumbs ======= -->
+<div class="breadcrumbs d-flex align-items-center" style="background-image: url('static/assets/img/c.jpg');">
+  <div class="container position-relative d-flex flex-column align-items-center">
+    <div class="container">
+      <div class="row">
+        <h2 data-aos="fade-up">Your Grievance</h2>
+        <blockquote data-aos="fade-up" data-aos-delay="100">
+          <p style="text-align: justify; color: aliceblue;">Here, you may fill out a form to solve your issue.</p>
+        </blockquote>
+      </div>
+    </div>
+  </div>
+</div><!-- End Breadcrumbs -->
+
+<main id="main">
+
+
+
+  <!-- ======= Section-2 ======= -->
+  <section id="contact" class="contactt">
+    <div class="container position-relative d-flex flex-column ">
+      <div class="row">
+        <div>
+          <br><br>
+          <form action="" method="post" class="php-email-form">
+            <table style="width: 70%; " cellpadding="6">
+              <tr>
+                <th><span style="font-size: 25px;color: #06567b;">Enter your Grievance</span> </th>
+              </tr>
+              <tr>
+                <td><textarea name="complaint" placeholder="Lets solve it..." rows="4" class="form-control"
+                    required></textarea></td>
+              </tr>
+              <tr>
+                <td style="text-align: right;"><input type="submit" name='submit' class=" mt-3" value="SEND"></td>
+              </tr>
+            </table>
+          </form>
+          {%if data['view']%}
+          <br><br>
+          <hr><br><br>
+          <h1 style="color: #06567b; text-align: center;">Your Grievance & its Responses</h1>
+          <br>
+          <table class="table table-hover">
+            <tr class="table-info" style="color: white;">
+              <th style="width: 200px;">Send On</th>
+              <th>Grievance</th>
+              <th>Response</th>
+
+            </tr>
+            {% for i in data['view']%}
+            <tr>
+              <td>{{i['date']}}</td>
+              <td>{{i['complaint_des']}}</td>
+              <td>{{i['reply']}}</td>
+            </tr>
+            {%endfor%}
+          </table>
+          {%endif%}
+          <br><br><br>
+        </div>
+      </div>
+    </div>
+  </section><!-- End Section-2 -->
+</main>
+{% include 'footer.html'%}

@@ -1,0 +1,64 @@
+{% include 'staff_header.html'%}
+
+<div class="profile">
+    <div class="breadcrumbs d-flex align-items-center" style="background-color: #1b2f45">
+    </div><!-- End Breadcrumbs -->
+    <div>
+        <main id="main">
+            <!--service-->
+            <form action="/predictSentiment" method="POST">
+                <section>
+                    <div class="container">
+
+                        <div>
+                            <div>
+                            </div>
+                        </div><!--End of  row-->
+
+                        <form action="/predictSentiment" method="POST">
+                            <div class="row">
+                                <div>
+                                    <div>
+                                        <br>
+                                        <h5
+                                            style="font-family: Georgia, 'Times New Roman', Times, serif;font-size: 30px;">
+                                            How have you been feeling these last few weeks?</h5>
+                                        <br>
+                                        <textarea required="required" id="form10" name="form10"
+                                            class="md-textarea form-control" rows="7"></textarea>
+                                    </div>
+                                </div>
+                            </div><!--End of row-->
+
+                            <div>
+                                <div>
+                                    <br><br>
+                                    <p align="right"><button type="submit">Next</button></p>
+                                    <br><br><br><br><br><br><br>
+                                </div>
+                            </div>
+                        </form><!--End of form-->
+
+                    </div>
+                </section>
+
+
+                </body>
+                {% include 'footer.html'%}
+
+                <Style>
+                    button[type=submit],
+                    input[type=submit] {
+                        background: #1f98d1;
+                        border: 0;
+                        padding: 12px 40px;
+                        color: #fff;
+                        transition: 0.4s;
+                    }
+
+                    button[type=submit]:hover,
+                    input[type=submit]:hover {
+                        background: #d11f1f;
+
+                    }
+                </Style>

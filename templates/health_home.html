@@ -1,0 +1,18 @@
+{% include 'health_header.html'%}
+<!-- ======= Hero Section ======= -->
+<section id="hero" class="hero d-flex align-items-center">
+  <div class="container">
+    <div class="row">
+      <div class="col-xl-4">
+        <h2 data-aos="fade-up" class="mt-3" style="font-size: 60px; margin-left: -60">Welcome</h2>
+        <h1 data-aos="fade-right"
+          style="color: #56b8e6; text-align: right; margin: 0;font-size: 48px;font-weight: 700;line-height: 1.2;">
+          {{data['view'][0]['h_fname']}}&nbsp;{{data['view'][0]['h_lname']}}</h1>
+        <blockquote data-aos="fade-up" data-aos-delay="100">
+          <p style="text-align: justify;"></p>
+        </blockquote>
+      </div>
+    </div>
+  </div>
+</section><!-- End Hero Section -->
+{% include 'footer.html'%}

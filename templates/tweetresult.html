@@ -1,0 +1,155 @@
+{% include 'staff_header.html'%}
+ <!-- ======= Breadcrumbs ======= -->
+ <div class="breadcrumbs d-flex align-items-center" style="background-image: url('static/assets/img/ooo.png');">
+  <div class="container position-relative d-flex flex-column align-items-center">
+      <div class="container">
+          <div class="row">
+              <h2 data-aos="fade-up">About Doctors</h2>
+              <blockquote data-aos="fade-up" data-aos-delay="100">
+                  <p style="text-align: justify; color: aliceblue;">Make appointment after knowing about doctors.</p>
+              </blockquote>
+          </div>
+      </div>
+  </div>
+</div><!-- End Breadcrumbs -->
+<main id="main">
+
+
+            <div class="banner-text text-center">
+              {% block code_block %}
+                {% if result == 1 %}
+                  <h1 class="white">You are facing depression</h1>
+                {% else %}
+                  <h1 class="white">You have no depression</h1>
+                {% endif %}
+                <!-- <td align="left"><a href="/predict">next</a></td> -->
+              {% endblock %}
+              <p>This depression test is based on the Depression Screening Test based on PHQ9</p>
+            </div>
+            <div class="overlay-detail text-center">
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!--/ banner-->
+
+   <!--about-->
+  <section id="about" class="section-padding">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+          <div style="visibility: visible;" class="col-sm-9 more-features-box">
+            <div class="more-features-box-text">
+              <div class="more-features-box-text-icon"> <i class="fa fa-angle-right" aria-hidden="true"></i> </div>
+              <div class="more-features-box-text-description">
+                <h3>It's something important you want to know.</h3>
+                <p>If you have some symptoms of depression. Right now, these symptoms are likely causing problems in your daily life. These problems may be big, like making it hard for you to take care of everyday activities and enjoy the things you usually do. You should get help right away.</p>
+              </div>
+            </div>
+            <div class="more-features-box-text-icon"> <i class="fa fa-angle-right" aria-hidden="true"></i> </div>
+              <div class="more-features-box-text-description">
+                <h3>Find Help.</h3>
+                <p>When you're feeling depressed, it can be hard to have energy to make a phone call. But having support from others can be helpful. Try talking to your doctor or a therapist. They can help you get treatment to deal with depression. You can also try telling family and friends how you’re feeling.
+                    How you’re feeling now isn't how you’ll always feel. People do get better. There are many good treatments for depression.
+                </p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!--/ about-->
+
+
+  <!--cta 2-->
+  <!-- <section id="cta-2" class="section-padding">
+    <div class="container">
+      <div class=" row">
+        <div class="col-md-2"></div>
+        <div class="text-right-md col-md-4 col-sm-4">
+          <h2 class="section-title white lg-line">« A few words<br> about us »</h2>
+        </div>
+        <div class="col-md-4 col-sm-5">
+          Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a typek
+          <p class="text-right text-primary"><i>— Medilap Healthcare</i></p>
+        </div>
+        <div class="col-md-2"></div>
+      </div>
+    </div>
+  </section> -->
+  <!--cta-->
+
+  <!--footer-->
+  <!-- <footer id="footer">
+    <div class="top-footer">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-4 col-sm-4 marb20">
+            <div class="ftr-tle">
+              <h4 class="white no-padding">About Us</h4>
+            </div>
+            <div class="info-sec">
+              <p>Praesent convallis tortor et enim laoreet, vel consectetur purus latoque penatibus et dis parturient.</p>
+            </div>
+          </div>
+          <div class="col-md-4 col-sm-4 marb20">
+            <div class="ftr-tle">
+              <h4 class="white no-padding">Quick Links</h4>
+            </div>
+            <div class="info-sec">
+              <ul class="quick-info">
+                <li><a href="index.html"><i class="fa fa-circle"></i>Home</a></li>
+                <li><a href="#service"><i class="fa fa-circle"></i>Demo</a></li>
+                <li><a href="#contact"><i class="fa fa-circle"></i>Appointment</a></li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-md-4 col-sm-4 marb20">
+            <div class="ftr-tle">
+              <h4 class="white no-padding">Follow us</h4>
+            </div>
+            <div class="info-sec">
+              <ul class="social-icon">
+                <li class="bglight-blue"><i class="fa fa-facebook"></i></li>
+                <li class="bgred"><i class="fa fa-google-plus"></i></li>
+                <li class="bgdark-blue"><i class="fa fa-linkedin"></i></li>
+                <li class="bglight-blue"><i class="fa fa-twitter"></i></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-line">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12 text-center">
+            © Copyright Medilab. All Rights Reserved
+            <div class="credits">
+
+              Designed by <a href="https://medilabs.com/">Medilabs</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <!--/ footer--> 
+
+  <!-- <script src="{{url_for('static',filename='js/jquery.min.js')}}"></script>
+  <script src="{{url_for('static',filename='js/jquery.easing.min.js')}}"></script>
+  <script src="{{url_for('static',filename='js/bootstrap.min.js')}}"></script>
+  <script src="{{url_for('static',filename='js/custom.js')}}"></script>
+
+
+
+
+</body>
+
+</html> -->
+{% include 'footer.html'%}

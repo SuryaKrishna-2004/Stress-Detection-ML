@@ -1,0 +1,191 @@
+{% include 'staff_header.html'%}
+<!-- ======= Breadcrumbs ======= -->
+<div class="breadcrumbs d-flex align-items-center" style="background-image: url('static/assets/img/c.jpg');">
+  <div class="container position-relative d-flex flex-column align-items-center">
+  <div class="container">
+      <div class="row">
+              <h2 data-aos="fade-up">Audio Classifier</h2>
+              <blockquote data-aos="fade-up" data-aos-delay="100">
+          <p style="text-align: justify; color: aliceblue;">Here, you may fill out a form to solve your issue.</p>
+        </blockquote>
+      </div>
+    </div>
+  </div>
+</div><!-- End Breadcrumbs -->
+
+<main id="main">
+
+<!-- ======= Section-2 ======= -->
+<section id="contact" class="contactt">
+  <div class="container position-relative d-flex flex-column ">
+    <div class="row">
+        <div class="split left">
+            <!-- <h2 align="center">Enter Text or Use Mic</h2> -->
+            <br>
+
+<center>
+
+
+            <div class="card" style="background-color: skyblue;">
+  <!-- <img src="img_avatar.png" alt="Avatar" style="width:100%"> -->
+  <div class="container" style="color:    black;">
+    <h4 align="center"><b>After pressing the button above, <br> you will have  <span style="color: red;"> 15 sec </span> to answer the question</b></h4>
+  </div>
+</div>
+<p>Tell me about yourself</p>
+</center>
+
+
+<br><br>
+
+         
+
+
+            <br>	
+                <form action="" method="post" align="center" enctype="multipart/form-data">
+                    <input type="text" name="sen" class="mytext" id="speechToText" placeholder="">
+                    <button type="button" name="button" class="mic" onclick="record()"><img src="/static/mic.png " height="32px" width="38px" /></button>
+                    &nbsp&nbsp&nbsp&nbsp
+                    <input type="submit" name="submit" class="submit">
+
+                    
+                </form>
+                <br>
+               <center> 
+            <div class="card1" style="background-color: skyblue;">
+  <!-- <img src="img_avatar.png" alt="Avatar" style="width:100%"> -->
+  <div class="container1" style="color:    black;">
+    <h4 align="center"><b>Start Recording...</b></h4>
+  </div>
+</div>
+
+</center>
+        </div>
+    </div>
+  </div>
+</section>
+<center>
+
+
+
+<script>
+	//webkitSpeechRecognition api for speech to text conversion
+	function record(){
+		var recognition = new webkitSpeechRecognition();
+		recognition.lang='en-IN';
+
+		recognition.onresult = function(event){
+			console.log(event)
+			document.getElementById('speechToText').value = event.results[0][0].transcript;
+		}
+		recognition.start();
+	 }
+	function play()
+	{
+		var videoSource = new Array();
+		var	videos = document.getElementById("list").getElementsByTagName("li");
+		var j;
+		for(j=0;j<videos.length;j++)
+		{
+			videoSource[j] = "/static/" + videos[j].innerHTML +".mp4";
+		}
+
+		var i = 0; // define i
+		var videoCount = videoSource.length;
+
+		function videoPlay(videoNum)
+		{
+			document.getElementById("list").getElementsByTagName("li")[videoNum].style.color = "#09edc7";
+			document.getElementById("list").getElementsByTagName("li")[videoNum].style.fontSize = "xx-large";
+			document.getElementById("videoPlayer").setAttribute("src", videoSource[videoNum]);
+	    	document.getElementById("videoPlayer").load();
+	    	document.getElementById("videoPlayer").play();
+
+		}
+		document.getElementById('videoPlayer').addEventListener('ended', myHandler, false);
+		document.getElementById("list").getElementsByTagName("li")[0].style.color = "#09edc7";
+		document.getElementById("list").getElementsByTagName("li")[0].style.fontSize = "xx-large";
+
+		videoPlay(0); // play the video
+
+		function myHandler()
+		{
+	 		document.getElementById("list").getElementsByTagName("li")[i].style.color = "#feda6a";
+			document.getElementById("list").getElementsByTagName("li")[i].style.fontSize = "20px";
+			i++;
+	    	if (i == videoCount)
+	    	{
+	       	    document.getElementById("videoPlayer").pause();
+	    	}
+	     	else
+	     	{
+	        	videoPlay(i);
+	    	}
+		}
+	}
+	/* LETS USE ONLY PLAY PAUSE BUTTON WITH 720 *420 ,IT FITS THE SCREEN
+	function makeBig() {
+	    document.getElementById("videoPlayer").width = 560;
+		document.getElementById("videoPlayer").height = 360;
+	}
+
+	function makeSmall() {
+	    document.getElementById("videoPlayer").width = 320;
+		document.getElementById("videoPlayer").height = 180;
+	}
+
+	function makeNormal() {
+	    document.getElementById("videoPlayer").width = 420;
+		document.getElementById("videoPlayer").height =280;
+	}*/
+	function playPause(){
+  		if (document.getElementById("videoPlayer").paused){
+    		play();}
+  		else{
+    		document.getElementById("videoPlayer").pause();}
+		}
+
+	</script>
+
+<style type="text/css">
+
+.card {
+  /* Add shadows to create the "card" effect */
+  box-shadow: 0 4px 8px  rgba(0,0,0,0.2);
+  transition: 0.3s;
+  border-radius: 555px;
+  width: 600px;
+}
+
+/* On mouse-over, add a deeper shadow */
+.card:hover {
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+
+/* Add some padding inside the card container */
+.container {
+  padding: -222px 2px;
+}
+
+
+	
+.card1 {
+  /* Add shadows to create the "card" effect */
+  box-shadow: 0 4px 8px  rgba(0,0,0,0.2);
+  transition: 0.3s;
+  border-radius: 555px;
+  width: 300px;
+}
+
+/* On mouse-over, add a deeper shadow */
+.card1:hover {
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+
+/* Add some padding inside the card container */
+.container1 {
+  padding: -222px 2px;
+}
+
+</style>
+{% include 'footer.html'%}

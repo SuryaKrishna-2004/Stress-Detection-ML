@@ -1,0 +1,51 @@
+{% include 'staff_header.html'%}
+<!-- ======= Breadcrumbs ======= -->
+<div class="breadcrumbs d-flex align-items-center" style="background-image: url('static/assets/img/c.jpg');">
+  <div class="container position-relative d-flex flex-column align-items-center">
+  <div class="container">
+      <div class="row">
+              <h2 data-aos="fade-up">Take Medication</h2>
+              <blockquote data-aos="fade-up" data-aos-delay="100">
+          <p style="text-align: justify; color: aliceblue;">Take the prescribed prescription</p>
+        </blockquote>
+      </div>
+    </div>
+  </div>
+</div><!-- End Breadcrumbs -->
+
+<main id="main">
+  
+  <!-- ======= Section-2 ======= -->
+  <section id="contact" class="contactt">
+    <div class="container position-relative d-flex flex-column ">
+      <div class="row">
+        <div>
+          {%if data['view']%}
+          <h1 style="color: #06567b;">Medication</h1>
+          <br>
+          <form method="post" class="php-email-form">
+            <table class="table">
+              <tr>
+                <th>S No.</th>
+                <th>Title</th>
+                <th>Description</th>
+              </tr>
+              {%for i in data['view']%}
+              <tr>
+                <td>{{loop.index}}</td>
+                <td>{{i['title']}}</td>
+                <td>{{i['description']}}</td>
+              </tr>
+              {%endfor%}
+            </table>
+            {%else%}
+            <br>
+            <br>
+            <marquee style="font-size: x-large;">No medication added, it will be added after appointment day.</marquee>
+            {%endif%}
+        </div>
+      </div>
+    </div>
+  </section><!-- End Section-2 -->
+</main>
+{% include 'footer.html'%}

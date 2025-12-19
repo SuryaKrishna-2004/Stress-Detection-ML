@@ -1,0 +1,394 @@
+{% include 'health_header.html'%}
+
+<div class="profile">
+  <div class="breadcrumbs d-flex align-items-center" style="background-color: #1b2f45">
+  </div><!-- End Breadcrumbs -->
+  <div>
+    <main id="main">
+
+
+
+      <!-- ======= Section-2 ======= -->
+      <section id="contact" class="contactt">
+        <div class="container position-relative d-flex flex-column  ">
+          <div class="row">
+            <center>
+              <div>
+
+                <h1 style="color: #06567b;font-weight: 600;">Your Profile</h1>
+                {% if data['view']%}
+
+                <form method="post" class="php-email-form" enctype="multipart/form-data">
+                  <div class="container">
+                    <div class="avatar-upload">
+                      <div class="avatar-edit">
+                        <input type='file' name="file" id="imageUpload" accept=".png, .jpg, .jpeg, .jfif" />
+                        <label for="imageUpload"></label>
+                      </div>
+                      <div class="avatar-preview">
+                        {%if data['view'][0]['h_photo'] %}
+
+                        {% set path=data['view'][0]['h_photo']%}
+                        <div id="imagePreview" style="background-image: url('{{path}}'
+                        )">
+                        </div>
+                        {%else%}
+                        <div id="imagePreview" style="background-image: url('static/assets/img/q6.png');"></div>
+                        {%endif%}
+                      </div>
+                    </div>
+                  </div>
+
+                  <table style="width: 60%;" cellpadding="6">
+                    <tr>
+                      <th style="width: 50%;">First Name</th>
+                      <th style="width: 50%;">Last Name</th>
+                    </tr>
+                    <tr>
+                      <td><input type="text" name="fname" value="{{data['view'][0]['h_fname']}}" disabled
+                          class="form-control " required></td>
+                      <td><input type="text" name="lname" value="{{data['view'][0]['h_lname']}}" disabled
+                          class="form-control " required></td>
+                    </tr>
+                    <tr>
+                      <th>Gender</th>
+                    </tr>
+                    <tr>
+                      <td colspan="2">&emsp;&emsp;&emsp;&emsp;&emsp;{%if data['view'][0]['h_gender']=='Male' %}
+                        <input type="radio" name="gender" value="Male" disabled checked>&nbsp;&nbsp;Male &emsp;
+                        <input type="radio" name="gender" value="Female" disabled>&nbsp;&nbsp; Female &emsp;
+                        <input type="radio" name="gender" value="Others" disabled>&nbsp;&nbsp; Others
+                        {%elif data['view'][0]['h_gender']=='Female'%}
+                        <input type="radio" name="gender" value="Male" disabled>&nbsp;&nbsp;Male
+                        &emsp;
+                        <input type="radio" name="gender" value="Female" disabled checked>&nbsp;&nbsp; Female
+                        &emsp;
+                        <input type="radio" name="gender" value="Others" disabled>&nbsp;&nbsp;Others
+                        {%else%}
+                        <input type="radio" name="gender" value="Male" disabled>&nbsp;&nbsp;Male
+                        &emsp;
+                        <input type="radio" name="gender" value="Female" disabled>&nbsp;&nbsp;Female&emsp;
+                        <input type="radio" name="gender" value="Others" disabled checked>&nbsp;&nbsp;Others
+                        {%endif%}
+                      </td>
+                    </tr>
+                    <tr>
+                      <th>DOB</th>
+                      <th>Age</th>
+                    </tr>
+                    <tr>
+                      <td><input type="date" name="dob" id="dateof" value="{{data['view'][0]['h_dob']}}" disabled
+                          class="form-control " required></td>
+                      <td><input type="text" name="age" id="age" class="form-control " disabled required></td>
+                    </tr>
+                    <tr>
+                      <th>Phone No</th>
+                      <th>Email ID</th>
+
+                    </tr>
+                    <tr>
+                      <td><input type="tel" name="phone_no" pattern="[6789][0-9]{9}"
+                          title="Please enter valid phone number" value="{{data['view'][0]['h_phone_no']}}"
+                          class="form-control" disabled required></td>
+                      <td><input type="email" name="email" value="{{data['view'][0]['h_email_id']}}"
+                          class="form-control " required disabled></td>
+
+                    </tr>
+
+                    <tr>
+                      <th>
+                        Resume<span style="color: red;"> *</span>
+                      </th>
+                      <th>Credential<span style="color: red;"> *</span></th>
+
+                    </tr>
+                    <tr>
+                      <td><input type="file" name="resume" accept=".pdf" title="Only pdf file accepted"
+                          class="form-control "></td>
+                      <td><input type="file" name="credential" accept=".pdf" title="Only pdf file accepted"
+                          class="form-control "></td>
+                    </tr>
+                    {%if data['view'][0]['h_resume'] and data['view'][0]['h_credential'] %}
+                    <tr>
+                      <td style="text-align: right;"><a href="{{data['view'][0]['h_resume']}}">Show</a></td>
+                      <td style="text-align: right;"><a href="{{data['view'][0]['h_credential']}}">Show</a></td>
+
+                    </tr>
+                    {%endif%}
+
+                    {%if data['add'][0]['pincode']%}
+
+                  </table>
+                  <br>
+                  <table style="width: 60%;" cellpadding="6">
+                    <tr>
+                      <th style="font-size: 25px;">Permanent Address</th>
+                      <th style="font-size: 25px;">Current Address</th>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td><span><input type="checkbox" id="checkBox" onclick="FillAddressInput()"> Same as permanent
+                          address</span></td>
+                    </tr>
+                    <tr>
+                      <th style="width: 50%;">Address Line1<span style="color: red;"> *</span></th>
+                      <th style="width: 50%;">Address Line1<span style="color: red;"> *</span></th>
+                    </tr>
+                    <tr>
+                      <td><input type="text" name="addressline1" id="pAddressLine1"
+                          value="{{data['add'][0]['address_line1']}}" class="form-control " required></td>
+                      <td><input type="text" name="caddressline1" id="curAddressLine1"
+                          value="{{data['add'][0]['c_address_line1']}}" class="form-control " required></td>
+                    </tr>
+                    <tr>
+                      <th style="width: 50%;">Address Line2<span style="color: red;"> *</span></th>
+                      <th style="width: 50%;">Address Line2<span style="color: red;"> *</span></th>
+                    </tr>
+                    <tr>
+                      <td><input type="text" name="addressline2" id="pAddressLine2"
+                          value="{{data['add'][0]['address_line2']}}" class="form-control " required></td>
+                      <td><input type="text" name="caddressline2" id="curAddressLine2"
+                          value="{{data['add'][0]['c_address_line2']}}" class="form-control " required></td>
+                    </tr>
+                    <tr>
+                      <th style="width: 50%;">Landmark<span style="color: red;"> *</span></th>
+                      <th style="width: 50%;">Landmark<span style="color: red;"> *</span></th>
+                    </tr>
+                    <tr>
+                      <td><input type="text" name="landmark" id="pLandmark" value="{{data['add'][0]['landmark']}}"
+                          class="form-control " required></td>
+                      <td><input type="text" name="clandmark" id="curLandmark" value="{{data['add'][0]['c_landmark']}}"
+                          class="form-control " required></td>
+                    </tr>
+                    <tr>
+                      <th style="width: 50%;">Pincode<span style="color: red;"> *</span></th>
+                      <th style="width: 50%;">Pincode<span style="color: red;"> *</span></th>
+                    </tr>
+                    <tr>
+                      <td><input type="text" name="pincode" pattern="[1-9][0-9]{5}" title="Please enter valid pincode"
+                          id="pZipcode" value="{{data['add'][0]['pincode']}}" class="form-control " required></td>
+                      <td><input type="text" name="cpincode" pattern="[1-9][0-9]{5}" title="Please enter valid pincode"
+                          id="curZipcode" value="{{data['add'][0]['c_pincode']}}" class="form-control " required></td>
+                    </tr>
+                    <tr>
+                      <th style="width: 50%;">City<span style="color: red;"> *</span></th>
+                      <th style="width: 50%;">City<span style="color: red;"> *</span></th>
+                    </tr>
+                    <tr>
+                      <td><input type="text" name="city" id="pCity" value="{{data['add'][0]['city']}}"
+                          class="form-control " required>
+                      </td>
+                      <td><input type="text" name="ccity" id="curCity" value="{{data['add'][0]['c_city']}}"
+                          class="form-control " required></td>
+                    </tr>
+                    <tr>
+                      <th style="width: 50%;">State<span style="color: red;"> *</span></th>
+                      <th style="width: 50%;">State<span style="color: red;"> *</span></th>
+                    </tr>
+                    <tr>
+                      <td><input type="text" name="state" id="pState" value="{{data['add'][0]['state']}}"
+                          class="form-control " required></td>
+                      <td><input type="text" name="cstate" id="curState" value="{{data['add'][0]['c_state']}}"
+                          class="form-control " required></td>
+                    </tr>
+                    <tr>
+                      <th style="width: 50%;">Country<span style="color: red;"> *</span></th>
+                      <th style="width: 50%;">Country<span style="color: red;"> *</span></th>
+                    </tr>
+                    <tr>
+                      <td><input type="text" name="country" id="pCountry" value="{{data['add'][0]['country']}}"
+                          class="form-control " required></td>
+                      <td><input type="text" name="ccountry" id="curCountry" value="{{data['add'][0]['c_country']}}"
+                          class="form-control " required></td>
+                    </tr>
+                    <tr>
+                      <td colspan="2" style="text-align: right;"><input type="submit" name="submit" class="mt-3"
+                          value="Update"></td>
+                    </tr>
+
+                  </table>
+                  {%else%}
+                  </table>
+                  <br>
+                  <table style="width: 60%;" cellpadding="6">
+                    <tr>
+                      <th style="font-size: 25px;">Permanent Address</th>
+                      <th style="font-size: 25px;">Current Address</th>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td><span><input type="checkbox" id="checkBox" onclick="FillAddressInput()"> Same as permanent
+                          address</span></td>
+                    </tr>
+                    <tr>
+                      <th style="width: 50%;">Address Line1<span style="color: red;"> *</span></th>
+                      <th style="width: 50%;">Address Line1<span style="color: red;"> *</span></th>
+                    </tr>
+                    <tr>
+                      <td><input type="text" name="addressline1" id="pAddressLine1" placeholder="Address Line 1"
+                          class="form-control " required></td>
+                      <td><input type="text" name="caddressline1" id="curAddressLine1" placeholder="Address Line 1"
+                          class="form-control " required></td>
+                    </tr>
+                    <tr>
+                      <th style="width: 50%;">Address Line2<span style="color: red;"> *</span></th>
+                      <th style="width: 50%;">Address Line2<span style="color: red;"> *</span></th>
+                    </tr>
+                    <tr>
+                      <td><input type="text" name="addressline2" id="pAddressLine2" placeholder="Address Line 2"
+                          class="form-control " required></td>
+                      <td><input type="text" name="caddressline2" id="curAddressLine2" placeholder="Address Line 2"
+                          class="form-control " required></td>
+                    </tr>
+                    <tr>
+                      <th style="width: 50%;">Landmark<span style="color: red;"> *</span></th>
+                      <th style="width: 50%;">Landmark<span style="color: red;"> *</span></th>
+                    </tr>
+                    <tr>
+                      <td><input type="text" name="landmark" class="form-control " id="pLandmark" placeholder="Landmark"
+                          required></td>
+                      <td><input type="text" name="clandmark" id="curLandmark" placeholder="Landmark"
+                          class="form-control " required></td>
+                    </tr>
+                    <tr>
+                      <th style="width: 50%;">Pincode<span style="color: red;"> *</span></th>
+                      <th style="width: 50%;">Pincode<span style="color: red;"> *</span></th>
+                    </tr>
+                    <tr>
+                      <td><input type="text" name="pincode" pattern="[1-9][0-9]{5}" title="Please enter valid pincode"
+                          id="pZipcode" placeholder="Pincode" class="form-control " required></td>
+                      <td><input type="text" name="cpincode" pattern="[1-9][0-9]{5}" title="Please enter valid pincode"
+                          id="curZipcode" placeholder="Pincode" class="form-control " required></td>
+                    </tr>
+                    <tr>
+                      <th style="width: 50%;">City<span style="color: red;"> *</span></th>
+                      <th style="width: 50%;">City<span style="color: red;"> *</span></th>
+                    </tr>
+                    <tr>
+                      <td><input type="text" name="city" id="pCity" placeholder="City" class="form-control " required>
+                      </td>
+                      <td><input type="text" name="ccity" id="curCity" placeholder="City" class="form-control "
+                          required>
+                      </td>
+                    </tr>
+                    <tr>
+                      <th style="width: 50%;">State<span style="color: red;"> *</span></th>
+                      <th style="width: 50%;">State<span style="color: red;"> *</span></th>
+                    </tr>
+                    <tr>
+                      <td><input type="text" name="state" id="pState" placeholder="State" class="form-control "
+                          required>
+                      </td>
+                      <td><input type="text" name="cstate" id="curState" placeholder="State" class="form-control "
+                          required>
+                      </td>
+                    </tr>
+                    <tr>
+                      <th style="width: 50%;">Country<span style="color: red;"> *</span></th>
+                      <th style="width: 50%;">Country<span style="color: red;"> *</span></th>
+                    </tr>
+                    <tr>
+                      <td><input type="text" name="country" id="pCountry" placeholder="Country" class="form-control "
+                          required></td>
+                      <td><input type="text" name="ccountry" id="curCountry" placeholder="Country" class="form-control "
+                          required></td>
+                    </tr>
+                    <tr>
+                      <td colspan="2" style="text-align: right;"><input type="submit" name="submit" class="mt-3"
+                          value="Update"></td>
+                    </tr>
+
+                  </table>
+                  {%endif%}
+                </form>
+                {% endif %}
+              </div>
+            </center>
+          </div>
+        </div>
+      </section><!-- End Section-2 -->
+    </main>
+
+    <script>
+      var userinput = document.getElementById("dateof").value;
+      if (userinput != "") {
+        var dob = new Date(userinput);
+        var month_diff = Date.now() - dob.getTime();
+        var age_dt = new Date(month_diff);
+        var year = age_dt.getUTCFullYear();
+        var age = Math.abs(year - 1970);
+        var input = document.getElementById("age");
+        input.setAttribute('value', age);
+      }
+    </script>
+
+
+    <script type="text/javascript">
+
+      function FillAddressInput() {
+        let checkBox = document.getElementById('checkBox');
+
+        let pAddressLine1 = document.getElementById("pAddressLine1");
+        let pAddressLine2 = document.getElementById("pAddressLine2");
+        let pLandmark = document.getElementById("pLandmark");
+        let pZipcode = document.getElementById("pZipcode");
+        let pCity = document.getElementById("pCity");
+        let pState = document.getElementById("pState");
+        let pCountry = document.getElementById("pCountry");
+
+        let curAddressLine1 = document.getElementById("curAddressLine1");
+        let curAddressLine2 = document.getElementById("curAddressLine2");
+        let curLandmark = document.getElementById("curLandmark");
+        let curZipcode = document.getElementById("curZipcode");
+        let curCity = document.getElementById("curCity");
+        let curState = document.getElementById("curState");
+        let curCountry = document.getElementById("curCountry");
+
+        if (checkBox.checked == true) {
+
+          let pAddressLine1Value = pAddressLine1.value;
+          let pAddressLine2Value = pAddressLine2.value;
+          let pLandmarkValue = pLandmark.value;
+          let pZipcodeValue = pZipcode.value;
+          let pCityValue = pCity.value;
+          let pStateValue = pState.value;
+          let pCountryValue = pCountry.value;
+
+          curAddressLine1.value = pAddressLine1Value;
+          curAddressLine2.value = pAddressLine2Value;
+          curLandmark.value = pLandmarkValue;
+          curZipcode.value = pZipcodeValue;
+          curCity.value = pCityValue;
+          curState.value = pStateValue;
+          curCountry.value = pCountryValue;
+
+
+        }
+        else {
+          curAddressLine1.value = "";
+          curAddressLine2.value = "";
+          curLandmark.value = "";
+          curZipcode.value = "";
+          curCity.value = "";
+          curState.value = "";
+          curCountry.value = "";
+        }
+      }
+
+    </script>
+
+    <script>
+      imageUpload.onchange = evt => {
+        const [file] = imageUpload.files
+        if (file) {
+          var imagePreview = document.querySelector('#imagePreview');
+          var url = URL.createObjectURL(file);
+          imagePreview.style.backgroundImage = 'url(' + url + ')';
+          imagePreview.style.backgroundImage = url(tmppath);
+        }
+      }
+
+    </script>
+
+
+    {% include 'footer.html' %}

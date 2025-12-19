@@ -1,0 +1,93 @@
+{%include 'staff_header.html' %}
+{%if data['basic']%}
+{%for i in data['basic']%}
+<div class="breadcrumbs d-flex align-items-center" style="background-image: url('static/assets/img/ooo.png');">
+  <div class="container position-relative d-flex flex-column align-items-center">
+    <div class="container">
+      <div class="row">
+        <h2 data-aos="fade-up">{{i['h_fname']}} {{i['h_lname']}}'s Details</h2>
+        <blockquote data-aos="fade-up" data-aos-delay="100">
+          <p style="text-align: justify; color: aliceblue;">Know more about health team.</p>
+        </blockquote>
+      </div>
+    </div>
+  </div>
+</div><!-- End Breadcrumbs -->
+
+
+<main id="main">
+  <!-- ======= Section-2 ======= -->
+  <section id="contact" class="contactt">
+    <div class="container position-relative d-flex flex-column ">
+      <div class="row">
+        <div>
+
+          <!-- <h1 style="color: #06567b;">Know More..</h1> -->
+          <br>
+          <!-- <form method="post" class="php-email-form">
+            <table style="width: 500px; " cellpadding="6">
+              
+            </table>
+          </form> -->
+
+          <table class="table table-borderless">
+
+            <tr>
+              <th> Profile Status</th>
+              {%if data['basic'][0]['h_credential']%}
+              <th style="color: green;">Verified Profile</th>
+              {%else%}
+              <th style="color: red;">Profile Not Verified</th>
+            </tr>
+            {%endif%}
+            <tr>
+              <th>Full Name</th>
+              <td>{{i['h_fname']}} {{i['h_lname']}}</td>
+            </tr>
+            {%if data['basic'][0]['h_photo']%}
+            <tr>
+              <th>Photo</th>
+              <td><img src="{{i['h_photo']}}" width="132px" height="170px" alt="Photo Not added Yet"></td>
+            </tr>
+            {%endif%}
+            <tr>
+              <th>Qualification</th>
+              <td>{{i['h_qualification']}}</td>
+            </tr>
+
+            {%if data['caddr'][0]['c_pincode']%}
+            {%for k in data['caddr']%}
+            <tr>
+              <th>Communication Address</th>
+              <td>{{k['c_address_line1']}}, {{k['c_address_line2']}} <br> {{k['c_landmark']}}, {{k['c_city']}} <br>
+                {{k['c_state']}}, {{k['c_country']}}, {{k['c_pincode']}}</td>
+            </tr>
+            {%endfor%}
+            {%endif%}
+
+            <tr>
+              <th>Email ID</th>
+              <td>{{i['h_email_id']}}</td>
+            </tr>
+            {%if data['basic'][0]['h_resume']%}
+            <tr>
+              <th>Resume</th>
+              <td><a href="{{i['h_resume']}}">Show</a></td>
+            </tr>
+            {%endif%}
+            {%if data['basic'][0]['h_credential']%}
+            <tr>
+              <th>Credential</th>
+              <td><a href="{{i['h_credential']}}">Show</a></td>
+            </tr>
+            {%endif%}
+            {%endfor%}
+
+          </table>
+
+          {%endif%}
+        </div>
+      </div>
+    </div>
+  </section><!-- End Section-2 -->
+  {% include 'footer.html'%}
